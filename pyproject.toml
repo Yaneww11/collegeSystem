@@ -6,9 +6,15 @@ authors = [
     {name = "Yaneww11",email = "yaneyanev2807@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11, <3.12"
 dependencies = [
-    "django (>=5.2.1,<6.0.0)"
+    "django (>=5.2.1,<6.0.0)",
+    "django-environ (>=0.12.0,<0.13.0)",
+]
+
+[tool.poetry]
+packages = [
+    {include = "collegeSystem"}, # Need because prooject name is in lowrecase
 ]
 
 
