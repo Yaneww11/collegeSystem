@@ -10,9 +10,12 @@ class Profile(models.Model):
         primary_key=True,
     )
 
-    profile_picture = models.URLField(
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures',
         blank=True,
-        null=True
+        null=True,
+        help_text='Upload a profile picture (optional)',
+        verbose_name='Profile Picture'
     )
 
     phone_number = models.CharField(
