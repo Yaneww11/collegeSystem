@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {{ form.errors }}
+        <div class="form-container">
+            <h1>Create an Account</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first-name" placeholder="Enter First Name">
+
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name">
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password1" placeholder="Enter Password" required>
+
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="password2" placeholder="Re-Enter Password"
+                       required>
+
+                <button type="submit">Register</button>
+
+                <div class="link-container">
+                    <a href="{% url 'login' %}">Already have an account? Sign in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
