@@ -1,0 +1,85 @@
+/* Vendor prefixes for better compatibility */
+.card {
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+}
+
+/* Base design for desktop */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Tablet adjustments */
+@media screen and (max-width: 992px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    #main-nav, .topnav {
+        flex-direction: column;
+    }
+    
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .welcome-buttons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+    .welcome-buttons .btn {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* NAV WRAP UNDER 840px (840 instead of 600 due to amount of links) */
+@media screen and (max-width: 840px) {
+  .topnav {
+    flex-wrap: wrap;
+  }
+
+  .topnav .nav-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Each link takes about half the row, touch-friendly */
+  .topnav .nav-links a {
+    flex: 0 0 auto;
+    margin: 0 0.5rem;;
+    padding: 10px 0;
+    border-bottom: none;  /* remove desktop underline style */
+  }
+
+  /* Auth buttons also wrap on their own line */
+  .topnav .auth-buttons {
+    width: 100%;
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .topnav .auth-buttons a {
+    flex: 1 0 auto;
+    text-align: center;
+  }
+}

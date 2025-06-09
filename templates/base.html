@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Address Book</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="https://kit.fontawesome.com/64727f0e11.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>College Management System</title>
+  <link rel="stylesheet" href="{% get_static_prefix %}css/style.css"/>
+  <link rel="stylesheet" href="{% get_static_prefix %}css/responsive.css"/>
 </head>
 <body>
     {% block navbar %}
@@ -20,5 +20,8 @@
     {% block content %}
 
     {% endblock %}
+    <script src="{% get_static_prefix %}js/data.js"></script>
+    <script src="{% get_static_prefix %}js/ui.js"></script>
+    <script src="{% get_static_prefix %}js/app.js"></script>
 </body>
 </html>

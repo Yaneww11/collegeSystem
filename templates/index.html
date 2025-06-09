@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <main id="content">
+      <div class="welcome-page">
+        <h1>Welcome to College Management System</h1>
+        <div class="welcome-buttons">
+            <a href="{% url 'login' %}" class="btn primary">Login</a>
+            <a href="{% url 'register' %}" class="btn secondary">Register</a>
+        </div>
+      </div>
+    </main>
+{% endblock %}

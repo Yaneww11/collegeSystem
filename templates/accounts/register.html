@@ -4,38 +4,63 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        {{ form.errors }}
-        <div class="form-container">
-            <h1>Create an Account</h1>
-            <form method="post">
+    <main class="auth-page">
+        <div class="auth-container">
+            <h2>Register</h2>
+            <form method="post" id="register-form">
+                {% if form.errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 {% csrf_token %}
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter Username" required>
-
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email" required>
-
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="first-name" placeholder="Enter First Name">
-
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last-name" placeholder="Enter Last Name">
-
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password1" placeholder="Enter Password" required>
-
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="password2" placeholder="Re-Enter Password"
-                       required>
-
-                <button type="submit">Register</button>
-
-                <div class="link-container">
-                    <a href="{% url 'login' %}">Already have an account? Sign in</a>
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username:</label>
+                    {{ form.username }}
                 </div>
-            </form>
-        </div>
-    </div>
 
+                <div class="form-group">
+                    <label for="reg-pin">Personal Identification Number:</label>
+                    <input type="text" id="reg-pin" name="pin" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Password:</label>
+                    {{ form.password1 }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                    {{ form.password2 }}
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-role">Role:</label>
+                    <select id="reg-role" name="role" required>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="department_head">Department Head</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn secondary">Register</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/auth.js' %}"></script>
 {% endblock %}
