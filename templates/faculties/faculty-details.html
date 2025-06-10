@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Faculty Details{% endblock title %}
+
+{% block content %}
+<main id="content">
+    <section class="faculty-info-section">
+        <h1>Faculty of Science</h1>
+
+        <div class="faculty-info card">
+            <p><strong>Address:</strong> 123 Science Avenue, Main Campus</p>
+            <p><strong>Head of Faculty:</strong> Prof. Alexander Ivanov</p>
+            <p><strong>Total Departments:</strong> 2</p>
+            <p><strong>Total Teachers:</strong> 25</p>
+            <p><strong>Total Courses:</strong> 20</p>
+        </div>
+
+    </section>
+
+    <section class="faculty-departments-section">
+        <h2>Departments Under This Faculty</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Department Name</th>
+                    <th>Head of Department</th>
+                    <th>Teachers</th>
+                    <th>Courses</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#" class="department-link">Computer Science</a></td>
+                    <td>Dr. Jane Smith</td>
+                    <td>15</td>
+                    <td>12</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="../departments/department-details.html" class="action-btn view-btn"
+                               title="View Department">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="../departments/edit-department.html" class="action-btn edit-btn"
+                               title="Edit Department">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="department-link">Mathematics</a></td>
+                    <td>Dr. John Doe</td>
+                    <td>10</td>
+                    <td>8</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="action-btn view-btn"
+                               title="View Department">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="#" class="action-btn edit-btn"
+                               title="Edit Department">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="faculty-staff-section">
+        <h2>Faculty Staff Overview</h2>
+        <ul class="simple-list card">
+            <li><strong>Prof. Alexander Ivanov</strong> – Head of Faculty</li>
+            <li><strong>Dr. Jane Smith</strong> – Head of Computer Science Department</li>
+            <li><strong>Dr. John Doe</strong> – Head of Mathematics Department</li>
+            <li>Other 22 teachers across 2 departments</li>
+        </ul>
+
+        <div class="form-actions">
+            <a href="{% url 'faculties' %}" class="btn secondary">← Back to Faculties</a>
+        </div>
+    </section>
+</main>
+{% endblock content %}

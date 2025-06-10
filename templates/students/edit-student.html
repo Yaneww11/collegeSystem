@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Student{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <h1>Edit Student</h1>
+            <form id="edit-student-form">
+                <div class="form-group">
+                    <label for="student-name">Full Name</label>
+                    <input type="text" id="student-name" value="Maria Ivanova" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-email">Email</label>
+                    <input type="email" id="student-email" value="maria@college.edu" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-faculty">Faculty</label>
+                    <select id="student-faculty" required>
+                        <option value="science" selected>Faculty of Science</option>
+                        <option value="arts">Faculty of Arts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="student-program">Program</label>
+                    <input type="text" id="student-program" value="Computer Science" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Save Changes</button>
+                    <a href="{% url 'students' %}" class="btn secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock content %}

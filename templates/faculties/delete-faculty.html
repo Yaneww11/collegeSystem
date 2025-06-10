@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Faculty{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <section class="section">
+                <h1>Delete Faculty</h1>
+                <p>Are you sure you want to delete the <strong>Faculty of Science</strong>? This action cannot be
+                    undone.
+                </p>
+                <form id="delete-faculty-form">
+                    <input type="hidden" id="dept-id" value="1"/>
+                    <button type="submit" class="btn warning">Yes, Delete</button>
+                    <a href="{% url 'faculties' %}" class="btn secondary">Cancel</a>
+                </form>
+            </section>
+        </div>
+
+    </main>
+{% endblock content %}

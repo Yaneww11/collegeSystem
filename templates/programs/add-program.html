@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add New Program{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <h1>Add New Program</h1>
+            <form id="add-program-form" class="form">
+                <div class="form-group">
+                    <label for="program-name">Program Name:</label>
+                    <input type="text" id="program-name" required/>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <!-- Dynamically fill -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="degree">Degree:</label>
+                    <select id="degree" required>
+                        <option value="Bachelor">Bachelor</option>
+                        <option value="Master">Master</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="qualified-courses">Courses</label>
+                    <input type="text" id="qualified-courses" value="Programming, Databases"/>
+                </div>
+                <button type="submit" class="btn primary">Add Program</button>
+                <a href="{% url 'programs' %}" class="btn secondary">Cancel</a>
+            </form>
+        </div>
+
+    </main>
+{% endblock content %}

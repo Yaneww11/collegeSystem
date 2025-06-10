@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Department Details{% endblock title %}
+
+{% block content %}
+<main id="content">
+    <section class="department-info-section">
+        <h1>Department: Computer Science</h1>
+
+        <div class="department-info card">
+            <p><strong>Faculty:</strong> Faculty of Science</p>
+            <p><strong>Head of Department:</strong> Dr. Jane Smith</p>
+            <p><strong>Total Teachers:</strong> 15</p>
+            <p><strong>Total Courses:</strong> 12</p>
+        </div>
+
+    </section>
+
+    <section class="department-courses-section">
+        <h2>Courses Offered</h2>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Teacher</th>
+                    <th>Credits</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#" class="course-link">Introduction to Programming</a></td>
+                    <td>Prof. Mark Johnson</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="course-link">Data Structures</a></td>
+                    <td>Prof. Anna Petrova</td>
+                    <td>6</td>
+                </tr>
+                <!-- More rows dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="department-teachers-section">
+        <h2>Teachers</h2>
+        <ul class="simple-list card">
+            <li><a href="#" class="teacher-link">Dr. Jane Smith</a></li>
+            <li><a href="#" class="teacher-link">Prof. Mark Johnson</a></li>
+            <li><a href="#" class="teacher-link">Prof. Anna Petrova</a></li>
+        </ul>
+    </section>
+
+    <a href="{% url 'departments' %}" class="btn secondary">← Back to Departments</a>
+</main>
+{% endblock content %}

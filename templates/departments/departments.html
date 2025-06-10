@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Departments Management{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Departments Management</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-department' %}" class="btn primary" id="add-department">Add Department</a>
+            </div>
+            <!-- Departments Table EXAMPLE -->
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <!-- Default table headers -->
+                        <th>Department Name</th>
+                        <th>Faculty</th>
+                        <th>Head of Department</th>
+                        <th>Teachers</th>
+                        <th>Courses</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Fill body with for each department -->
+                    <tr>
+                        <td>Computer Science</td> <!-- dept.name -->
+                        <td>Faculty of Science</td> <!-- dept.faculty -->
+                        <td>Dr. Jane Smith</td> <!-- dept.head -->
+                        <td>15</td> <!-- get teachers amount -->
+                        <td>12</td> <!-- get courses amount -->
+                        <td>
+                            <!-- Add buttons based on user's current role!! -->
+                            <div class="action-buttons">
+                                <a href="{% url 'department-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-department' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-department' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mathematics</td>
+                        <td>Faculty of Science</td>
+                        <td>Dr. John Doe</td>
+                        <td>10</td>
+                        <td>8</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'department-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-department' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-department' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Department{% endblock %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <h2>Delete Department</h2>
+            <p>Are you sure you want to delete the <strong>Computer Science</strong> department?</p>
+            <form id="delete-department-form">
+                <input type="hidden" id="dept-id" value="1"/>
+                <button type="submit" class="btn warning">Yes, Delete</button>
+                <a href="{% url 'departments' %}" class="btn secondary">Cancel</a>
+            </form>
+        </div>
+    </main>
+{% endblock content %}

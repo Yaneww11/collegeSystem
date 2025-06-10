@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Faculties Management{% endblock %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Faculties Management</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-faculty' %}" class="btn primary" id="add-faculty">Add Faculty</a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Faculty Name</th>
+                        <th>Address</th>
+                        <th>Departments</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Dynamic rows from JS or backend -->
+                    <tr>
+                        <td>Faculty of Science</td>
+                        <td>123 Science Ave</td>
+                        <td>3</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'faculty-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-faculty' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-faculty' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Faculty of Humanities</td>
+                        <td>456 Humanities Blvd</td>
+                        <td>2</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'faculty-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-faculty' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-faculty' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

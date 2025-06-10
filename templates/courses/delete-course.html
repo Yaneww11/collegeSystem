@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Course{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <section class="section">
+                <h1>Delete Course</h1>
+                <div class="alert danger">
+                    <p>Are you sure you want to delete the course <strong>"Introduction to Programming"</strong>?</p>
+                    <p>This action cannot be undone.</p>
+                </div>
+
+                <form id="delete-course-form">
+                    <input type="hidden" id="dept-id" value="1"/>
+                    <button type="submit" class="btn warning">Yes, Delete</button>
+                    <a href="{% url 'courses' %}" class="btn secondary">Cancel</a>
+                </form>
+            </section>
+        </div>
+
+    </main>
+{% endblock content %}

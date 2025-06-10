@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Teacher{% endblock title %}
+
+{% block content %}
+<main class="form-page">
+    <div class="form-container">
+        <h1>Delete Teacher</h1>
+        <p>Are you sure you want to delete <strong>Dr. Alice Cooper</strong> from the system?</p>
+        <form id="delete-teacher-form">
+            <button type="submit" class="btn warning">Delete</button>
+            <a href="teachers.html" class="btn secondary">Cancel</a>
+        </form>
+    </div>
+
+</main>
+{% endblock content %}

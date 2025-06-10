@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Program Details{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <h1>Program Details</h1>
+        <div class="detail-card card">
+            <p><strong>Program Name:</strong> Software Engineering</p>
+            <p><strong>Department:</strong> <a href="#" class="department-link">Computer Science</a></p>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p><strong>Degree:</strong> Bachelor</p>
+            <p><strong>Number of Courses:</strong> 12</p>
+            <p><strong>Enrolled Students:</strong> 150</p>
+        </div>
+        <a href="{% url 'programs' %}" class="btn secondary">Back</a>
+    </main>
+{% endblock content %}

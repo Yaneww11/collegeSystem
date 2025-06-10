@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Programs Management{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Programs Management</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-program' %}" class="btn primary">Add Program</a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Program Name</th>
+                        <th>Department</th>
+                        <th>Current Semester</th>
+                        <th>Degree</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Example Row -->
+                    <tr>
+                        <td>Software Engineering</td>
+                        <td>Computer Science</td>
+                        <td>4th</td>
+                        <td>Bachelor</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'program-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-program' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-program' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Additional rows will be inserted dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

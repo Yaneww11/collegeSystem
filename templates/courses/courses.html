@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Courses Management{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Courses Management</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-course' %}" class="btn primary">Add Course</a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Department</th>
+                        <th>Instructor</th>
+                        <th>Credits</th>
+                        <th>Enrolled Students</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Algorithms</td>
+                        <td>Computer Science</td>
+                        <td>Dr. Jane Smith</td>
+                        <td>5</td>
+                        <td>32</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'course-details' %}" class="action-btn view-btn" title="View"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-course' %}" class="action-btn edit-btn" title="Edit"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-course' %}" class="action-btn delete-btn" title="Delete"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Linear Algebra</td>
+                        <td>Mathematics</td>
+                        <td>Dr. John Doe</td>
+                        <td>4</td>
+                        <td>28</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'course-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-course' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-course' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
+

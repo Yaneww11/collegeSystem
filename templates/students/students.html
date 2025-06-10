@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Students Management{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Students</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-student' %}" class="btn primary">Add Student</a>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Faculty</th>
+                        <th>Program</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Sample Row -->
+                    <tr>
+                        <td>Maria Ivanova</td>
+                        <td>Faculty of Science</td>
+                        <td>Computer Science</td>
+                        <td>maria@college.edu</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'student-details' %}" class="action-btn view-btn"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-student' %}" class="action-btn edit-btn"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-student' %}" class="action-btn delete-btn"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- More rows via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
