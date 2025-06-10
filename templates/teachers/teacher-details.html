@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Teacher Details{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <h1>Teacher Profile</h1>
+        <div class="card">
+            <h2>Dr. Alice Cooper</h2>
+            <p><strong>Department:</strong> <a href="#" class="department-link">Computer Science</a></p>
+            <p><strong>Qualified Courses:</strong> <a href="#" class="course-link">Programming</a>, <a href="#"
+                                                                                                       class="course-link">Databases</a>
+            </p>
+            <p><strong>Email:</strong> alice.cooper@example.com</p>
+            <p><strong>Phone:</strong> +359 888 123 456</p>
+        </div>
+        <a href="{% url 'teachers' %}" class="btn secondary">Back to Teachers</a>
+    </main>
+{% endblock content %}

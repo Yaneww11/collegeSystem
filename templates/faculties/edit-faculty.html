@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Faculty{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <section class="section">
+                <h1>Edit Faculty</h1>
+                <form id="edit-faculty-form" class="form">
+                    <div class="form-group">
+                        <label for="faculty-name">Faculty Name:</label>
+                        <input type="text" id="faculty-name" name="faculty-name" value="Faculty of Science" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="faculty-address">Address:</label>
+                        <input type="text" id="faculty-address" name="faculty-address" value="123 Science Ave"
+                               required/>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Save Changes</button>
+                        <a href="{% url 'faculties' %}" class="btn secondary">Cancel</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+    </main>
+{% endblock content %}

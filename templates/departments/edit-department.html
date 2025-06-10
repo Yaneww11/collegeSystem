@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Department{% endblock %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <h2>Edit Department</h2>
+            <form id="edit-department-form">
+                <div class="form-group">
+                    <label for="dept-name">Department Name:</label>
+                    <input type="text" id="dept-name" value="Computer Science" required/>
+                </div>
+                <div class="form-group">
+                    <label for="faculty">Faculty:</label>
+                    <input type="text" id="faculty" value="Faculty of Science" required/>
+                </div>
+                <div class="form-group">
+                    <label for="dept-head">Head of Department:</label>
+                    <select id="dept-head" name="dept-head" required/>
+                    <option value="">Select Head Teacher</option>
+                    <!-- Fill dynamically from existing teachers WHICH ARENT HEADS!! -->
+                    <option value="jane_smith">Dr. Jane Smith</option>
+                    <option value="john_doe">Dr. John Doe</option>
+                    <option value="alice_jones">Dr. Alice Jones</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary">Save Changes</button>
+                <a href="{% url 'departments' %}" class="btn secondary">Cancel</a>
+            </form>
+        </div>
+    </main>
+{% endblock content %}

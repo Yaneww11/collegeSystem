@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Teachers Management{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>Teachers Management</h1>
+            <div class="toolbar">
+                <a href="{% url 'add-teacher' %}" class="btn primary">Add Teacher</a>
+            </div>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Qualified Courses</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Sample Data -->
+                    <tr>
+                        <td>Dr. Alice Cooper</td>
+                        <td>Computer Science</td>
+                        <td>Programming, Databases</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'teacher-details' %}" class="action-btn view-btn" title="View"><i
+                                        class="fas fa-eye"></i></a>
+                                <a href="{% url 'edit-teacher' %}" class="action-btn edit-btn" title="Edit"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete-teacher' %}" class="action-btn delete-btn" title="Delete"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add dynamic data here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

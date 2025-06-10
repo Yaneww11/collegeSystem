@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Program{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <section class="section">
+            <h1>My Program</h1>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Credits</th>
+                        <th>Semester</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Example Row -->
+                    <!-- Get all necessary information from this-> student's enrolled courses ? -->
+                    <tr>
+                        <td>CS101</td>
+                        <td>Introduction to Computer Science</td>
+                        <td>3</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>CS102</td>
+                        <td>Data Structures</td>
+                        <td>4</td>
+                        <td>2</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

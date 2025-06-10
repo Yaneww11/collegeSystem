@@ -3,25 +3,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>College Management System</title>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/style.css"/>
-  <link rel="stylesheet" href="{% get_static_prefix %}css/responsive.css"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %}{% endblock title %}</title>
+    <script src="https://kit.fontawesome.com/64727f0e11.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/tables.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
 </head>
 <body>
-    {% block navbar %}
-        <header class="navbar">
-            <a href="#">Homepage</a>
-            <a href="#">Profile</a>
-            <a href="#">Address Book</a>
-        </header>
-    {% endblock %}
-    {% block content %}
+{% block navbar %}
+    <header>
+        <nav class="topnav">
+            <div class="nav-links">
+                <a href="{% url 'departments' %}">Departments</a>
+                <a href="{% url 'courses' %}">Courses</a>
+                <a href="{% url 'teachers' %}">Teachers</a>
+                <a href="{% url 'students' %}">Students</a>
+                <a href="{% url 'faculties' %}">Faculties</a>
+                <a href="{% url 'programs' %}">Programs</a>
+                <a href="{% url 'statistics' %}">Statistics</a>
+            </div>
+            <div class="auth-buttons">
+                <button id="logout-btn" class="btn warning">Logout</button>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+{% block content %}
 
-    {% endblock %}
-    <script src="{% get_static_prefix %}js/data.js"></script>
-    <script src="{% get_static_prefix %}js/ui.js"></script>
-    <script src="{% get_static_prefix %}js/app.js"></script>
+{% endblock %}
+<script src="{% get_static_prefix %}js/data.js"></script>
+<script src="{% get_static_prefix %}js/ui.js"></script>
+<script src="{% get_static_prefix %}js/app.js"></script>
 </body>
 </html>

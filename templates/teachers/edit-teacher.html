@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Teacher{% endblock title %}
+
+{% block content %}
+    <main class="form-page">
+        <div class="form-container">
+            <h1>Edit Teacher</h1>
+            <form id="edit-teacher-form">
+                <div class="form-group">
+                    <label for="teacher-name">Full Name</label>
+                    <input type="text" id="teacher-name" value="Dr. Alice Cooper" required/>
+                </div>
+                <div class="form-group">
+                    <label for="teacher-dept">Department</label>
+                    <select id="teacher-dept" required>
+                        <option value="cs" selected>Computer Science</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="qualified-courses">Qualified Courses</label>
+                    <input type="text" id="qualified-courses" value="Programming, Databases"/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Save Changes</button>
+                    <a href="{% url 'teachers' %}" class="btn secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Student Details{% endblock title %}
+
+{% block content %}
+    <main id="content">
+        <h1>Student Details</h1>
+        <div class="card">
+            <p><strong>Name:</strong> Maria Ivanova</p>
+            <p><strong>Email:</strong> maria@college.edu</p>
+            <p><strong>Faculty:</strong> <a href="#" class="faculty-link">Faculty of Science</a></p>
+            <p><strong>Program:</strong> <a href="#" class="program-link">Computer Science</a></p>
+            <p><strong>Enrolled Courses:</strong></p>
+            <ul class="simple-list">
+                <li><a href="#" class="course-link">Data Structures</a></li>
+                <li><a href="#" class="course-link">Algorithms</a></li>
+                <li><a href="#" class="course-link">Operating Systems</a></li>
+            </ul>
+        </div>
+        <div class="form-actions">
+            <a href="{% url 'students' %}" class="btn secondary">Back</a>
+        </div>
+    </main>
+{% endblock content %}
