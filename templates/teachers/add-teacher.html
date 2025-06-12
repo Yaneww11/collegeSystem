@@ -4,26 +4,40 @@
 {% block title %}Add New Teacher{% endblock title %}
 
 {% block content %}
-    <main class="form-page">
-        <div class="form-container"><h1>Add New Teacher</h1>
-            <form id="add-teacher-form">
-                <div class="form-group">
-                    <label for="teacher-name">Full Name</label>
-                    <input type="text" id="teacher-name" required/>
-                </div>
-                <div class="form-group">
-                    <label for="teacher-dept">Department</label>
-                    <select id="teacher-dept" required>
-                        <option value="">-- Select Department --</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="qualified-courses">Qualified Courses</label>
-                    <input type="text" id="qualified-courses" placeholder="Separate with commas"/>
-                </div>
-                <button type="submit" class="btn primary">Add Teacher</button>
-            </form>
-        </div>
+    <main id="content">
+        <section class="section">
+            <h1>Add New Teacher</h1>
 
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-container">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="form-actions">
+                        <a href="{% url 'teachers' %}" class="btn secondary">Cancel</a>
+                        <button type="submit" class="btn primary">Add Teacher</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 {% endblock content %}

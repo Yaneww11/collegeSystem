@@ -5,16 +5,30 @@
 
 {% block content %}
     <main id="content">
-        <h1>Teacher Profile</h1>
-        <div class="card">
-            <h2>Dr. Alice Cooper</h2>
-            <p><strong>Department:</strong> <a href="#" class="department-link">Computer Science</a></p>
-            <p><strong>Qualified Courses:</strong> <a href="#" class="course-link">Programming</a>, <a href="#"
-                                                                                                       class="course-link">Databases</a>
-            </p>
-            <p><strong>Email:</strong> alice.cooper@example.com</p>
-            <p><strong>Phone:</strong> +359 888 123 456</p>
-        </div>
-        <a href="{% url 'teachers' %}" class="btn secondary">Back to Teachers</a>
+        <section class="section">
+            <h1>Teacher Profile</h1>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="card">
+                <h2>{{ teacher.profile.user.get_full_name }}</h2>
+                <p><strong>Department:</strong> <a href="{% url 'department-details' teacher.department.id %}" class="department-link">{{ teacher.department.name }}</a></p>
+                <p><strong>Description:</strong> {{ teacher.description }}</p>
+                <p><strong>Email:</strong> {{ teacher.profile.user.email }}</p>
+                <p><strong>Phone:</strong> {{ teacher.profile.phone_number }}</p>
+            </div>
+
+            <div class="action-buttons mt-3">
+                <a href="{% url 'teachers' %}" class="btn secondary">Back to Teachers</a>
+            </div>
+        </section>
     </main>
 {% endblock content %}

@@ -4,30 +4,40 @@
 {% block title %}Edit Teacher{% endblock title %}
 
 {% block content %}
-    <main class="form-page">
-        <div class="form-container">
+    <main id="content">
+        <section class="section">
             <h1>Edit Teacher</h1>
-            <form id="edit-teacher-form">
-                <div class="form-group">
-                    <label for="teacher-name">Full Name</label>
-                    <input type="text" id="teacher-name" value="Dr. Alice Cooper" required/>
-                </div>
-                <div class="form-group">
-                    <label for="teacher-dept">Department</label>
-                    <select id="teacher-dept" required>
-                        <option value="cs" selected>Computer Science</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="qualified-courses">Qualified Courses</label>
-                    <input type="text" id="qualified-courses" value="Programming, Databases"/>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn primary">Save Changes</button>
-                    <a href="{% url 'teachers' %}" class="btn secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
 
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-container">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                {% for error in field.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="form-actions">
+                        <a href="{% url 'teachers' %}" class="btn secondary">Cancel</a>
+                        <button type="submit" class="btn primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 {% endblock content %}

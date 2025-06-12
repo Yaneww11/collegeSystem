@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Course Details{% endblock title %}
+{% block title %}Course Details: {{ course.name }}{% endblock title %}
 
 {% block content %}
     <main id="content">
         <section class="course-details-section">
             <h1>Course Details</h1>
             <div class="card">
-                <p><strong>Name:</strong> Introduction to Programming</p>
-                <p><strong>Credits:</strong> 5</p>
-                <p><strong>Department:</strong> <a href="#" class="department-link">Computer Science</a></p>
-                <p><strong>Instructor:</strong> <a href="#" class="teacher-link">Dr. Jane Smith</a></p>
-                <p><strong>Enrolled Students:</strong> 60</p>
-                <p><strong>Description:</strong> This course covers the basics of programming in Python including
-                    variables, loops, functions, and more.</p>
+                <p><strong>Name:</strong> {{ course.name }} {{ course.department.id  }}</p>
+                {% if course.department.id %}
+                    <p><strong>Department:</strong> <a href="{% url 'department-details' course.department.id %}">{{ course.department.name }}</a></p>
+                {% endif %}
+                {% if course.department.id %}
+                    <p><strong>Instructor:</strong> <a href="{% url 'teacher-details' course.teacher.profile.pk %}">{{ course.teacher.profile.user.get_full_name }}</a></p>
+                {% endif %}
+                <p><strong>Semester:</strong> {{ course.semester_program.semester }} {{ course.semester_program.year }}</p>
+                <p><strong>Enrolled Students:</strong> {{ course.students.count }}</p>
+                <p><strong>Description:</strong> {{ course.description|linebreaks }}</p>
             </div>
 
             <div class="form-actions">

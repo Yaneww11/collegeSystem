@@ -85,7 +85,7 @@ Ensure you have Poetry installed on your system. If not, you can install it by f
 
 - **collegeSystem/**: Contains the main Django project files.
 - **templates/**: Directory for HTML templates.
-- **db.sqlite3**: SQLite database file.
+- **db.postgres**: Postgres database file.
 - **pyproject.toml**: Project configuration file for Poetry.
 - **manage.py**: Django's command-line utility for administrative tasks.
 

@@ -16,6 +16,9 @@ class College(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Faculty(models.Model):
     name = models.CharField(max_length=255)
@@ -23,7 +26,12 @@ class Faculty(models.Model):
         'College',
         on_delete=models.CASCADE,
         related_name='faculties',
+        null=True,
+        blank=True
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Department(models.Model):
@@ -32,14 +40,19 @@ class Department(models.Model):
         'Faculty',
         on_delete=models.CASCADE,
         related_name='departments',
+        null=True,
+        blank=True,
     )
     head = models.OneToOneField(
         'Teacher',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='head_of_department'  # Added related_name
+        related_name='head_of_department'
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Enrollment(models.Model):
@@ -47,11 +60,15 @@ class Enrollment(models.Model):
         'Student',
         on_delete=models.CASCADE,
         related_name='enrollments',
+        null=True,
+        blank=True,
     )
     course = models.ForeignKey(
         'Course',
         on_delete=models.CASCADE,
         related_name='enrollments',
+        null=True,
+        blank=True,
     )
     enrolled_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
@@ -62,6 +79,9 @@ class Enrollment(models.Model):
     class Meta:
         unique_together = (('student', 'course'),)
 
+    def __str__(self):
+        return f"{self.student} - {self.course} ({self.status})"
+
 
 class SemesterProgram(models.Model):
     semester = models.CharField(max_length=20)
@@ -70,15 +90,23 @@ class SemesterProgram(models.Model):
         'College',
         on_delete=models.CASCADE,
         related_name='semester_programs',
+        null=True,
+        blank=True,
     )
+
+    def __str__(self):
+        return f"{self.semester} {self.year}"
 
 
 class Course(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    department = models.ForeignKey('Department', on_delete=models.CASCADE)
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
-    semester_program = models.ForeignKey('SemesterProgram', on_delete=models.CASCADE)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, null=True, blank=True)
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, null=True, blank=True)
+    semester_program = models.ForeignKey('SemesterProgram', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Grade(models.Model):
@@ -87,6 +115,9 @@ class Grade(models.Model):
     teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=5, decimal_places=2)
     issued_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student} - {self.course}: {self.value}"
 
 
 class Student(models.Model):
@@ -101,6 +132,9 @@ class Student(models.Model):
         through='Enrollment',
         related_name='students'
     )
+
+    def __str__(self):
+        return f"{self.profile.user} ({self.specialty})"
 
 
 class Teacher(models.Model):
@@ -118,3 +152,6 @@ class Teacher(models.Model):
         blank=True,
         null=True
     )
+
+    def __str__(self):
+        return self.profile.user.get_full_name()
