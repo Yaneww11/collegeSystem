@@ -11,6 +11,16 @@
                 <a href="{% url 'add-student' %}" class="btn primary">Add Student</a>
             </div>
 
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="table-container">
                 <table class="table">
                     <thead>
@@ -18,29 +28,32 @@
                         <th>Name</th>
                         <th>Faculty</th>
                         <th>Program</th>
-                        <th>Email</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Sample Row -->
+                    {% comment %} list all users who have role == student {% endcomment %}
+                    {% for student in students %}
                     <tr>
-                        <td>Maria Ivanova</td>
-                        <td>Faculty of Science</td>
-                        <td>Computer Science</td>
-                        <td>maria@college.edu</td>
+                        <td>{{ student.profile.user.get_full_name }}</td>
+                        <td>{{student.enrolled_courses.first.department.faculty.name}}</td>
+                        <td>{{student.specialty}}</td>
                         <td>
                             <div class="action-buttons">
-                                <a href="{% url 'student-details' %}" class="action-btn view-btn"><i
+                                <a href="{% url 'student-details' student.pk %}" class="action-btn view-btn"><i
                                         class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-student' %}" class="action-btn edit-btn"><i
+                                <a href="{% url 'edit-student' student.pk %}" class="action-btn edit-btn"><i
                                         class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-student' %}" class="action-btn delete-btn"><i
+                                <a href="{% url 'delete-student' student.pk %}" class="action-btn delete-btn"><i
                                         class="fas fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
-                    <!-- More rows via JS -->
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No students available.</td>
+                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

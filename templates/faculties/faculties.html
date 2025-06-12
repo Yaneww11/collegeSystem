@@ -11,6 +11,16 @@
                 <a href="{% url 'add-faculty' %}" class="btn primary" id="add-faculty">Add Faculty</a>
             </div>
 
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="table-container">
                 <table class="table">
                     <thead>
@@ -22,37 +32,28 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Dynamic rows from JS or backend -->
+                    <!-- Dynamic rows from backend -->
+                    {% for faculty in faculties %}
                     <tr>
-                        <td>Faculty of Science</td>
-                        <td>123 Science Ave</td>
-                        <td>3</td>
+                        <td>{{faculty.name}}</td>
+                        <td>{{faculty.college}}</td>
+                        <td>{{faculty.departments.count}}</td>
                         <td>
                             <div class="action-buttons">
-                                <a href="{% url 'faculty-details' %}" class="action-btn view-btn"><i
+                                <a href="{% url 'faculty-details' faculty.id %}" class="action-btn view-btn"><i
                                         class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-faculty' %}" class="action-btn edit-btn"><i
+                                <a href="{% url 'edit-faculty' faculty.id %}" class="action-btn edit-btn"><i
                                         class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-faculty' %}" class="action-btn delete-btn"><i
+                                <a href="{% url 'delete-faculty' faculty.id %}" class="action-btn delete-btn"><i
                                         class="fas fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
+                    {% empty %}
                     <tr>
-                        <td>Faculty of Humanities</td>
-                        <td>456 Humanities Blvd</td>
-                        <td>2</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{% url 'faculty-details' %}" class="action-btn view-btn"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-faculty' %}" class="action-btn edit-btn"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-faculty' %}" class="action-btn delete-btn"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
+                        <td colspan="4" class="text-center">No faculties available</td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
