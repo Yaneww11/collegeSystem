@@ -6,13 +6,13 @@
 {% block content %}
     <main id="content">
         <section class="course-details-section">
-            <h1>Course Details</h1>
+            <h1>Course: {{ course.name }}</h1>
             <div class="card">
                 <p><strong>Name:</strong> {{ course.name }} {{ course.department.id  }}</p>
                 {% if course.department.id %}
                     <p><strong>Department:</strong> <a href="{% url 'department-details' course.department.id %}">{{ course.department.name }}</a></p>
                 {% endif %}
-                {% if course.department.id %}
+                {% if course.teacher.id %}
                     <p><strong>Instructor:</strong> <a href="{% url 'teacher-details' course.teacher.profile.pk %}">{{ course.teacher.profile.user.get_full_name }}</a></p>
                 {% endif %}
                 <p><strong>Semester:</strong> {{ course.semester_program.semester }} {{ course.semester_program.year }}</p>

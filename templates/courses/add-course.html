@@ -4,21 +4,38 @@
 {% block title %}Add New Course{% endblock title %}
 
 {% block content %}
-<main class="form-page">
-    <div class="form-container">
-        <section class="section">
-            <h1>Add New Course</h1>
+    <main class="form-page">
+        <div class="form-container">
+            <h2>Add New Course</h2>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-            <form id="add-course-form" class="form" method="post">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <div class="error-message">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Save Course</button>
-                    <a href="{% url 'courses' %}" class="btn btn-secondary">Cancel</a>
+                    <a href="{% url 'courses' %}" class="btn secondary">Cancel</a>
+                    <button type="submit" class="btn primary">Add Course</button>
                 </div>
             </form>
-        </section>
-    </div>
+        </div>
 
-</main>
+    </main>
 {% endblock content %}

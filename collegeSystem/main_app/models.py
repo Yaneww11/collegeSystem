@@ -5,25 +5,38 @@ from collegeSystem.users.models import Profile
 
 
 class College(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255
+    )
+
     address = models.TextField()
+
     rector = models.OneToOneField(
-        Profile,
+        to=Profile,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
 
     def __str__(self):
         return self.name
 
 
 class Faculty(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255
+    )
+
     college = models.ForeignKey(
-        'College',
+        to='College',
         on_delete=models.CASCADE,
         related_name='faculties',
         null=True,
@@ -35,16 +48,20 @@ class Faculty(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255
+    )
+
     faculty = models.ForeignKey(
-        'Faculty',
+        to='Faculty',
         on_delete=models.CASCADE,
         related_name='departments',
         null=True,
         blank=True,
     )
+
     head = models.OneToOneField(
-        'Teacher',
+        to='Teacher',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -57,20 +74,25 @@ class Department(models.Model):
 
 class Enrollment(models.Model):
     student = models.ForeignKey(
-        'Student',
+        to='Student',
         on_delete=models.CASCADE,
         related_name='enrollments',
         null=True,
         blank=True,
     )
+
     course = models.ForeignKey(
-        'Course',
+        to='Course',
         on_delete=models.CASCADE,
         related_name='enrollments',
         null=True,
         blank=True,
     )
-    enrolled_at = models.DateTimeField(auto_now_add=True)
+
+    enrolled_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
     status = models.CharField(
         max_length=20,
         choices=[('active', 'Active'), ('dropped', 'Dropped'), ('completed', 'Completed')]
@@ -84,10 +106,14 @@ class Enrollment(models.Model):
 
 
 class SemesterProgram(models.Model):
-    semester = models.CharField(max_length=20)
+    semester = models.CharField(
+        max_length=20
+    )
+
     year = models.PositiveIntegerField()
+
     college = models.ForeignKey(
-        'College',
+        to='College',
         on_delete=models.CASCADE,
         related_name='semester_programs',
         null=True,
@@ -99,22 +125,73 @@ class SemesterProgram(models.Model):
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
-    department = models.ForeignKey('Department', on_delete=models.CASCADE, null=True, blank=True)
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, null=True, blank=True)
-    semester_program = models.ForeignKey('SemesterProgram', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(
+        max_length=255
+    )
+
+    description = models.TextField(
+        blank=True
+    )
+
+    credits = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
+
+    department = models.ForeignKey(
+        to='Department',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='courses'
+    )
+
+    teacher = models.ForeignKey(
+        to='Teacher',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='courses'
+    )
+
+    semester_program = models.ForeignKey(
+        to='SemesterProgram',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.name
 
 
 class Grade(models.Model):
-    student = models.ForeignKey('Student', on_delete=models.CASCADE)
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
-    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE)
-    value = models.DecimalField(max_digits=5, decimal_places=2)
-    issued_at = models.DateTimeField(auto_now_add=True)
+    student = models.ForeignKey(
+        to='Student',
+        on_delete=models.CASCADE,
+        related_name='grades',
+    )
+
+    course = models.ForeignKey(
+        to='Course',
+        on_delete=models.CASCADE,
+        related_name='grades',
+    )
+
+    teacher = models.ForeignKey(
+        to='Teacher',
+        on_delete=models.CASCADE,
+        related_name='grades',
+    )
+
+    value = models.DecimalField(
+        max_digits=5,
+        decimal_places=2
+    )
+
+    issued_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return f"{self.student} - {self.course}: {self.value}"
@@ -125,8 +202,13 @@ class Student(models.Model):
         Profile,
         on_delete=models.CASCADE,
         primary_key=True,
+        related_name='student_profile'
     )
-    specialty = models.CharField(max_length=255)
+
+    specialty = models.CharField(
+        max_length=255
+    )
+
     enrolled_courses = models.ManyToManyField(
         'Course',
         through='Enrollment',
@@ -142,12 +224,15 @@ class Teacher(models.Model):
         Profile,
         on_delete=models.CASCADE,
         primary_key=True,
+        related_name='teacher_profile'
     )
+
     department = models.ForeignKey(
         Department,
         on_delete=models.CASCADE,
         related_name='teachers',
     )
+
     description = models.TextField(
         blank=True,
         null=True

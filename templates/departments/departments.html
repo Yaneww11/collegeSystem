@@ -10,12 +10,21 @@
             <div class="toolbar">
                 <a href="{% url 'add-department' %}" class="btn primary" id="add-department">Add Department</a>
             </div>
-            <!-- Departments Table EXAMPLE -->
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="table-container">
                 <table class="table">
                     <thead>
                     <tr>
-                        <!-- Default table headers -->
                         <th>Department Name</th>
                         <th>Faculty</th>
                         <th>Head of Department</th>
@@ -25,42 +34,30 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Fill body with for each department -->
-                    <tr>
-                        <td>Computer Science</td> <!-- dept.name -->
-                        <td>Faculty of Science</td> <!-- dept.faculty -->
-                        <td>Dr. Jane Smith</td> <!-- dept.head -->
-                        <td>15</td> <!-- get teachers amount -->
-                        <td>12</td> <!-- get courses amount -->
-                        <td>
-                            <!-- Add buttons based on user's current role!! -->
-                            <div class="action-buttons">
-                                <a href="{% url 'department-details' %}" class="action-btn view-btn"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-department' %}" class="action-btn edit-btn"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-department' %}" class="action-btn delete-btn"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mathematics</td>
-                        <td>Faculty of Science</td>
-                        <td>Dr. John Doe</td>
-                        <td>10</td>
-                        <td>8</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{% url 'department-details' %}" class="action-btn view-btn"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-department' %}" class="action-btn edit-btn"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-department' %}" class="action-btn delete-btn"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                    {% for department in departments %}
+                        <tr>
+                            <td>{{ department.name }}</td>
+                            <td>{{ department.faculty }}</td>
+                            <td>{{ department.head }}</td>
+                            <td>{{ department.teachers.count }}</td>
+                            <td>{{ department.courses.count }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{% url 'department-details' department.id %}"
+                                       class="action-btn view-btn"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="{% url 'edit-department' department.id %}" class="action-btn edit-btn"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a href="{% url 'delete-department' department.id %}" class="action-btn delete-btn"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No departments available</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
