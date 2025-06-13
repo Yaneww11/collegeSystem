@@ -26,7 +26,10 @@
                 <a href="{% url 'statistics' %}">Statistics</a>
             </div>
             <div class="auth-buttons">
-                <button id="logout-btn" class="btn warning">Logout</button>
+                <form method="post" action="{%url 'logout' %}">
+                    {% csrf_token %}
+                    <button id="logout-btn" class="btn warning">Logout</button>
+                </form> 
             </div>
         </nav>
     </header>

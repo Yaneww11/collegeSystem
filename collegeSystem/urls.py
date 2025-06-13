@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from collegeSystem.users.views import UserLoginView, UserRegistrationView
+from django.contrib.auth.views import LogoutView # using django's built-in logout view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', UserLoginView.as_view(), name='login'),
     path('register/', UserRegistrationView.as_view(), name='register'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('', include('collegeSystem.main_app.urls'))
 ]
