@@ -112,7 +112,7 @@ class SemesterProgram(models.Model):
 
     year = models.PositiveIntegerField()
 
-    college = models.ForeignKey(
+    college = models.ForeignKey( # change to department?
         to='College',
         on_delete=models.CASCADE,
         related_name='semester_programs',
