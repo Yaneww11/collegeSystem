@@ -7,9 +7,6 @@
     <main id="content">
         <section class="section">
             <h1>Faculties Management</h1>
-            <div class="toolbar">
-                <a href="{% url 'add-faculty' %}" class="btn primary" id="add-faculty">Add Faculty</a>
-            </div>
 
             {% if messages %}
                 <div class="messages">
@@ -33,25 +30,22 @@
                     </thead>
                     <tbody>
                     {% for faculty in faculties %}
-                    <tr>
-                        <td>{{faculty.name}}</td>
-                        <td>{{faculty.college}}</td>
-                        <td>{{faculty.departments.count}}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{% url 'faculty-details' faculty.id %}" class="action-btn view-btn"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-faculty' faculty.id %}" class="action-btn edit-btn"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-faculty' faculty.id %}" class="action-btn delete-btn"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ faculty.name }}</td>
+                            <td>{{ faculty.college }}</td>
+                            <td>{{ faculty.departments.count }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{% url 'faculty-details' faculty.id %}" class="action-btn view-btn"><i
+                                            class="fas fa-eye"></i></a>
+
+                                </div>
+                            </td>
+                        </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center">No faculties available</td>
-                    </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">No faculties available</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

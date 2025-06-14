@@ -31,25 +31,22 @@
                     <tbody>
                     {% comment %} list all users who have role == student {% endcomment %}
                     {% for student in students %}
-                    <tr>
-                        <td>{{ student.profile.user.get_full_name }}</td>
-                        <td>{{student.enrolled_courses.first.department.faculty.name}}</td>
-                        <td>{{student.enrolled_program}}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{% url 'student-details' student.pk %}" class="action-btn view-btn"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-student' student.pk %}" class="action-btn edit-btn"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-student' student.pk %}" class="action-btn delete-btn"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ student.profile.user.get_full_name }}</td>
+                            <td>{{ student.enrolled_courses.first.department.faculty.name }}</td>
+                            <td>{{ student.enrolled_program }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{% url 'student-details' student.pk %}" class="action-btn view-btn"><i
+                                            class="fas fa-eye"></i></a>
+
+                                </div>
+                            </td>
+                        </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center">No students available.</td>
-                    </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">No students available.</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

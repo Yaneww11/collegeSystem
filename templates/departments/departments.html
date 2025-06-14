@@ -7,9 +7,6 @@
     <main id="content">
         <section class="section">
             <h1>Departments Management</h1>
-            <div class="toolbar">
-                <a href="{% url 'add-department' %}" class="btn primary" id="add-department">Add Department</a>
-            </div>
 
             {% if messages %}
                 <div class="messages">
@@ -46,10 +43,6 @@
                                     <a href="{% url 'department-details' department.id %}"
                                        class="action-btn view-btn"><i
                                             class="fas fa-eye"></i></a>
-                                    <a href="{% url 'edit-department' department.id %}" class="action-btn edit-btn"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a href="{% url 'delete-department' department.id %}" class="action-btn delete-btn"><i
-                                            class="fas fa-trash"></i></a>
                                 </div>
                             </td>
                         </tr>

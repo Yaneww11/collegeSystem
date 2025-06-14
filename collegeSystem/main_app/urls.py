@@ -1,12 +1,12 @@
 from django.urls import path, include
 
-from collegeSystem.main_app.views import HomeView, CoursesListView, CourseAddView, CourseDetailView, CourseEditView, \
-    CourseDeleteView, DepartmentsListView, DepartmentDetailView, DepartmentAddView, DepartmentEditView, \
-    DepartmentDeleteView, TeachersListView, TeacherDetailView, TeacherAddView, TeacherEditView, TeacherDeleteView, \
-    StudentsListView, StudentDetailView, StudentAddView, StudentEditView, StudentDeleteView, FacultiesListView, \
-    FacultyDetailView, FacultyAddView, FacultyEditView, FacultyDeleteView, ProgramsListView, ProgramDetailView, \
-    StudentProgramView, ProgramAddView, ProgramEditView, ProgramDeleteView, StatisticsView, CollegesListView, \
-    CollegeDetailView, CollegeAddView, CollegeEditView, CollegeDeleteView, EnrollmentsListView, EnrollmentDetailView, \
+from collegeSystem.main_app.views import HomeView, CoursesListView, CourseDetailView, \
+    DepartmentsListView, DepartmentDetailView, \
+    TeachersListView, TeacherDetailView, \
+    StudentsListView, StudentDetailView, FacultiesListView, \
+    FacultyDetailView, ProgramsListView, ProgramDetailView, \
+    StudentProgramView, StatisticsView, \
+    EnrollmentsListView, EnrollmentDetailView, \
     EnrollmentAddView, EnrollmentEditView, EnrollmentDeleteView, GradesListView, GradeAddView, GradeEditView, \
     GradeDeleteView
 
@@ -37,10 +37,6 @@ urlpatterns = [
     path('programs/', ProgramsListView.as_view(), name='programs'),
     path('programs/program-details/<int:pk>/', ProgramDetailView.as_view(), name='program-details'),
     path('programs/student-program/<int:pk>/', StudentProgramView.as_view(), name='student-program'),
-
-    # --------------- COLLEGES URLS --------------------
-    path('colleges/', CollegesListView.as_view(), name='colleges'),
-    path('colleges/college-details/<int:pk>/', CollegeDetailView.as_view(), name='college-details'),
 
     # --------------- ENROLLMENTS URLS --------------------
     path('enrollments/', EnrollmentsListView.as_view(), name='enrollments'),
