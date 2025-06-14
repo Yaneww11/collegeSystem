@@ -23,7 +23,7 @@
 
             <div class="toolbar">
                 <button type="submit" class="btn primary" id="save-grades">Save Changes</button>
-                {% comment %} potential handling of save changes: 
+                {% comment %} potential handling of save changes: IN CourseManageView
                 for each student in course, if grade != null: updateGrade... and updateAbsences  {% endcomment %}
             </div>
 
@@ -37,6 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% comment %}EXAMPLE table body ONLY FOR VIEW TESTING{% endcomment %}
                         <tr>
                             <td> Yane </td>
                             <td>
@@ -57,12 +58,12 @@
                             </td>
                         </tr>
                         {% comment "Copilot generated for each" %}
-                        {% for enrollment in course.enrollments.all %}
+                        {% for enrollment in enrollments %}
                         <tr>
                             <td>{{ enrollment.student }}</td>
                             <td>
                                 <select name="grade_{{ enrollment.student.id }}">
-                                    <option value="" disabled {% if not enrollment.student.grades.filter(course=course).exists %}selected{% endif %}>—</option>
+                                    <option value="None" {% if not enrollment.student.grades.filter(course=course).exists %}selected{% endif %}>—</option>
                                     {% for option in options %}
                                         <option value="{{ option }}"
                                             {% if enrollment.student.grades.filter(course=course, value=option).exists %}selected{% endif %}>

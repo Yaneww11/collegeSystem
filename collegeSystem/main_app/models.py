@@ -98,6 +98,8 @@ class Enrollment(models.Model):
         choices=[('active', 'Active'), ('dropped', 'Dropped'), ('completed', 'Completed')]
     )
 
+    absences = models.PositiveIntegerField(default=0)
+
     class Meta:
         unique_together = (('student', 'course'),)
 
@@ -213,6 +215,9 @@ class Student(models.Model):
         blank=True,
         related_name='students'
     )
+
+    def __str__(self):
+        return self.profile.user.get_username()
 
 
 class Teacher(models.Model):

@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
+from django.db import transaction
 
 from .models import (
     College, Faculty, Department, Course, Student, Teacher,
@@ -23,6 +24,9 @@ class CoursesListView(ListView):
     model = Course
     template_name = 'courses/courses.html'
     context_object_name = 'courses'
+    # update this to pass courses based on logged-in user + role
+    # if student, show only courses they are enrolled in and remove manage action button
+    # if teacher, show only courses they teach
 
 
 class CourseDetailView(DetailView):
@@ -41,6 +45,41 @@ class CourseManageView(DetailView):
         print(context)
         context['options'] = "2,3,4,5,6,None".split(',')
         return context
+    
+    def post(self, request, *args, **kwargs):
+        course = self.get_object()
+        enrollments = course.enrollments.select_related('student')
+
+        with transaction.atomic():
+            for enrollment in enrollments:
+                student_id = enrollment.student.id
+
+                #Handle grade
+                grade_value = request.POST.get(f'grade_{student_id}')
+                if grade_value and grade_value != 'None':
+                    grade_object, created = Grade.objects.get_or_create(
+                        student=enrollment.student,
+                        course=course,
+                        defaults={'value': grade_value}
+                    )
+                    if not created:
+                        grade_object.value = grade_value
+                        grade_object.save()
+                else:
+                    # If grade is selected as None, delete the grade
+                    Grade.objects.filter(student=enrollment.student, course=course).delete()
+
+                # Handle absences
+                absences_val = request.POST.get(f'absences_{student_id}')
+                if absences_val is not None:
+                    try:
+                        enrollment.absences = int(absences_val)
+                        enrollment.save()
+                    except ValueError:
+                        pass  # Optionally handle invalid input, shouldn't happen
+
+        messages.success(request, 'Changes saved successfully.')
+        return redirect('course-manage', pk=course.pk)
 
 # --------------- DEPARTMENTS VIEWS --------------------
 class DepartmentsListView(ListView):
@@ -107,6 +146,7 @@ class ProgramsListView(ListView):
     model = SemesterProgram
     template_name = 'programs/programs.html'
     context_object_name = 'programs'
+    # update this to somehow show the courses the student can enroll in
 
 
 class ProgramDetailView(DetailView):
