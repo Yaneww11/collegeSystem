@@ -1,4 +1,4 @@
-{% load static %}
+{% load static is_teacher %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,16 +20,18 @@
                 <a href="{% url 'departments' %}">Departments</a>
                 <a href="{% url 'courses' %}">Courses</a>
                 <a href="{% url 'teachers' %}">Teachers</a>
-                <a href="{% url 'students' %}">Students</a>
-                <a href="{% url 'faculties' %}">Faculties</a>
+                {% if request.user|is_teacher %}
+                    <a href="{% url 'students' %}">Students</a>
+                    <a href="{% url 'faculties' %}">Faculties</a>
+                {% endif %}
                 <a href="{% url 'programs' %}">Programs</a>
                 <a href="{% url 'statistics' %}">Statistics</a>
             </div>
             <div class="auth-buttons">
-                <form method="post" action="{%url 'logout' %}">
+                <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button id="logout-btn" class="btn warning">Logout</button>
-                </form> 
+                </form>
             </div>
         </nav>
     </header>
