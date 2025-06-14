@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from collegeSystem.main_app.views import HomeView, CoursesListView, CourseDetailView, \
+from collegeSystem.main_app.views import HomeView, CoursesListView, CourseDetailView, CourseManageView, \
     DepartmentsListView, DepartmentDetailView, \
     TeachersListView, TeacherDetailView, \
     StudentsListView, StudentDetailView, FacultiesListView, \
@@ -16,6 +16,7 @@ urlpatterns = [
     # ---------------- COURSES URLS ---------------------
     path('courses/', CoursesListView.as_view(), name='courses'),
     path('courses/course-details/<int:pk>/', CourseDetailView.as_view(), name='course-details'),
+    path("courses/course-manage/<int:pk>/", CourseManageView.as_view(), name="course-manage"),
 
     # --------------- DEPARTMENTS URLS --------------------
     path('departments/', DepartmentsListView.as_view(), name='departments'),

@@ -30,6 +30,17 @@ class CourseDetailView(DetailView):
     template_name = 'courses/course-details.html'
     context_object_name = 'course'
 
+class CourseManageView(DetailView):
+    model = Course
+    template_name = 'courses/course-manage.html'
+    context_object_name = 'course'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['students'] = Student.objects.all()
+        print(context)
+        context['options'] = "2,3,4,5,6,None".split(',')
+        return context
 
 # --------------- DEPARTMENTS VIEWS --------------------
 class DepartmentsListView(ListView):
