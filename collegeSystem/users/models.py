@@ -32,3 +32,6 @@ class Profile(models.Model):
         help_text='089999999',
     )
 
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
