@@ -13,6 +13,7 @@ admin.site.unregister(Group)
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, ModelAdmin):
     # Forms loaded from `unfold.forms`
+    list_display = ('username', 'email', 'is_staff', 'is_active')
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm

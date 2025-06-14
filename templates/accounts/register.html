@@ -28,16 +28,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="reg-pin">Personal Identification Number:</label>
-                    <input type="text" id="reg-pin" name="pin" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="{{ form.email.id_for_label }}">Email:</label>
-                    {{ form.email }}
-                </div>
-
-                <div class="form-group">
                     <label for="{{ form.password1.id_for_label }}">Password:</label>
                     {{ form.password1 }}
                 </div>
@@ -45,16 +35,6 @@
                 <div class="form-group">
                     <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
                     {{ form.password2 }}
-                </div>
-
-                <div class="form-group">
-                    <label for="reg-role">Role:</label>
-                    <select id="reg-role" name="role" required>
-                        <option value="student">Student</option>
-                        <option value="teacher">Teacher</option>
-                        <option value="department_head">Department Head</option>
-                        <option value="admin">Administrator</option>
-                    </select>
                 </div>
 
                 <button type="submit" class="btn secondary">Register</button>

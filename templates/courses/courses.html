@@ -12,13 +12,13 @@
             </div>
 
             {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
 
             <div class="table-container">
@@ -34,26 +34,29 @@
                     </thead>
                     <tbody>
                     {% for course in courses %}
-                    <tr>
-                        <td>{{ course.name }}</td>
-                        <td>{{ course.department.name }}</td>
-                        <td>{{ course.teacher.profile.user.get_full_name }}</td>
-                        <td>{{ course.semester_program.semester }} {{ course.semester_program.year }}</td>
-                        <td>
-                            <div class="action-buttons">
-                                <a href="{% url 'course-details' course.id %}" class="action-btn view-btn" title="View"><i
-                                        class="fas fa-eye"></i></a>
-                                <a href="{% url 'edit-course' course.id %}" class="action-btn edit-btn" title="Edit"><i
-                                        class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete-course' course.id %}" class="action-btn delete-btn" title="Delete"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.department.name }}</td>
+                            <td>{{ course.teacher.profile.user.get_full_name }}</td>
+                            <td>{{ course.semester_program.semester }} {{ course.semester_program.year }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{% url 'course-details' course.id %}" class="action-btn view-btn"
+                                       title="View"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="{% url 'edit-course' course.id %}" class="action-btn edit-btn"
+                                       title="Edit"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a href="{% url 'delete-course' course.id %}" class="action-btn delete-btn"
+                                       title="Delete"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center">No courses available</td>
-                    </tr>
+                        <tr>
+                            <td colspan="5" class="text-center">No courses available</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>
