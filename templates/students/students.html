@@ -7,9 +7,6 @@
     <main id="content">
         <section class="section">
             <h1>Students</h1>
-            <div class="toolbar">
-                <a href="{% url 'add-student' %}" class="btn primary">Add Student</a>
-            </div>
 
             {% if messages %}
                 <div class="messages">
@@ -37,7 +34,7 @@
                     <tr>
                         <td>{{ student.profile.user.get_full_name }}</td>
                         <td>{{student.enrolled_courses.first.department.faculty.name}}</td>
-                        <td>{{student.specialty}}</td>
+                        <td>{{student.enrolled_program}}</td>
                         <td>
                             <div class="action-buttons">
                                 <a href="{% url 'student-details' student.pk %}" class="action-btn view-btn"><i

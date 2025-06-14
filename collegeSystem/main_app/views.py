@@ -31,40 +31,6 @@ class CourseDetailView(DetailView):
     context_object_name = 'course'
 
 
-class CourseAddView(CreateView):
-    model = Course
-    form_class = CourseForm
-    template_name = 'courses/add-course.html'
-    success_url = reverse_lazy('courses')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Course created successfully.')
-        return super().form_valid(form)
-
-
-class CourseEditView(UpdateView):
-    model = Course
-    form_class = CourseForm
-    template_name = 'courses/edit-course.html'
-    context_object_name = 'course'
-    success_url = reverse_lazy('courses')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Course updated successfully.')
-        return super().form_valid(form)
-
-
-class CourseDeleteView(DeleteView):
-    model = Course
-    template_name = 'courses/delete-course.html'
-    context_object_name = 'course'
-    success_url = reverse_lazy('courses')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Course deleted successfully.')
-        return super().delete(request, *args, **kwargs)
-
-
 # --------------- DEPARTMENTS VIEWS --------------------
 class DepartmentsListView(ListView):
     model = Department
@@ -77,39 +43,6 @@ class DepartmentDetailView(DetailView):
     template_name = 'departments/department-details.html'
     context_object_name = 'department'
 
-
-class DepartmentAddView(CreateView):
-    model = Department
-    form_class = DepartmentForm
-    template_name = 'departments/add-department.html'
-    success_url = reverse_lazy('departments')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Department created successfully.')
-        return super().form_valid(form)
-
-
-class DepartmentEditView(UpdateView):
-    model = Department
-    form_class = DepartmentForm
-    template_name = 'departments/edit-department.html'
-    context_object_name = 'department'
-    success_url = reverse_lazy('departments')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Department updated successfully.')
-        return super().form_valid(form)
-
-
-class DepartmentDeleteView(DeleteView):
-    model = Department
-    template_name = 'departments/delete-department.html'
-    context_object_name = 'department'
-    success_url = reverse_lazy('departments')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Department deleted successfully.')
-        return super().delete(request, *args, **kwargs)
 
 
 # --------------- TEACHERS VIEWS --------------------
@@ -125,39 +58,6 @@ class TeacherDetailView(DetailView):
     context_object_name = 'teacher'
 
 
-class TeacherAddView(CreateView):
-    model = Teacher
-    form_class = TeacherForm
-    template_name = 'teachers/add-teacher.html'
-    success_url = reverse_lazy('teachers')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Teacher created successfully.')
-        return super().form_valid(form)
-
-
-class TeacherEditView(UpdateView):
-    model = Teacher
-    form_class = TeacherForm
-    template_name = 'teachers/edit-teacher.html'
-    context_object_name = 'teacher'
-    success_url = reverse_lazy('teachers')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Teacher updated successfully.')
-        return super().form_valid(form)
-
-
-class TeacherDeleteView(DeleteView):
-    model = Teacher
-    template_name = 'teachers/delete-teacher.html'
-    context_object_name = 'teacher'
-    success_url = reverse_lazy('teachers')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Teacher deleted successfully.')
-        return super().delete(request, *args, **kwargs)
-
 
 # --------------- STUDENTS VIEWS --------------------
 class StudentsListView(ListView):
@@ -172,38 +72,7 @@ class StudentDetailView(DetailView):
     context_object_name = 'student'
 
 
-class StudentAddView(CreateView):
-    model = Student
-    form_class = StudentForm
-    template_name = 'students/add-student.html'
-    success_url = reverse_lazy('students')
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Student created successfully.')
-        return super().form_valid(form)
-
-
-class StudentEditView(UpdateView):
-    model = Student
-    form_class = StudentForm
-    template_name = 'students/edit-student.html'
-    context_object_name = 'student'
-    success_url = reverse_lazy('students')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Student updated successfully.')
-        return super().form_valid(form)
-
-
-class StudentDeleteView(DeleteView):
-    model = Student
-    template_name = 'students/delete-student.html'
-    context_object_name = 'student'
-    success_url = reverse_lazy('students')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Student deleted successfully.')
-        return super().delete(request, *args, **kwargs)
 
 
 # --------------- FACULTIES VIEWS --------------------
@@ -219,38 +88,7 @@ class FacultyDetailView(DetailView):
     context_object_name = 'faculty'
 
 
-class FacultyAddView(CreateView):
-    model = Faculty
-    form_class = FacultyForm
-    template_name = 'faculties/add-faculty.html'
-    success_url = reverse_lazy('faculties')
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Faculty created successfully.')
-        return super().form_valid(form)
-
-
-class FacultyEditView(UpdateView):
-    model = Faculty
-    form_class = FacultyForm
-    template_name = 'faculties/edit-faculty.html'
-    context_object_name = 'faculty'
-    success_url = reverse_lazy('faculties')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Faculty updated successfully.')
-        return super().form_valid(form)
-
-
-class FacultyDeleteView(DeleteView):
-    model = Faculty
-    template_name = 'faculties/delete-faculty.html'
-    context_object_name = 'faculty'
-    success_url = reverse_lazy('faculties')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Faculty deleted successfully.')
-        return super().delete(request, *args, **kwargs)
 
 
 # --------------- PROGRAMS VIEWS --------------------
@@ -266,38 +104,7 @@ class ProgramDetailView(DetailView):
     context_object_name = 'program'
 
 
-class ProgramAddView(CreateView):
-    model = SemesterProgram
-    form_class = SemesterProgramForm
-    template_name = 'programs/add-program.html'
-    success_url = reverse_lazy('programs')
 
-    def form_valid(self, form):
-        messages.success(self.request, 'Program created successfully.')
-        return super().form_valid(form)
-
-
-class ProgramEditView(UpdateView):
-    model = SemesterProgram
-    form_class = SemesterProgramForm
-    template_name = 'programs/edit-program.html'
-    context_object_name = 'program'
-    success_url = reverse_lazy('programs')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Program updated successfully.')
-        return super().form_valid(form)
-
-
-class ProgramDeleteView(DeleteView):
-    model = SemesterProgram
-    template_name = 'programs/delete-program.html'
-    context_object_name = 'program'
-    success_url = reverse_lazy('programs')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Program deleted successfully.')
-        return super().delete(request, *args, **kwargs)
 
 
 class StudentProgramView(ListView):
@@ -314,52 +121,6 @@ class StudentProgramView(ListView):
 class StatisticsView(TemplateView):
     template_name = 'statistics/statistics.html'
 
-
-# --------------- COLLEGE VIEWS --------------------
-class CollegesListView(ListView):
-    model = College
-    template_name = 'colleges/colleges.html'
-    context_object_name = 'colleges'
-
-
-class CollegeDetailView(DetailView):
-    model = College
-    template_name = 'colleges/college-details.html'
-    context_object_name = 'college'
-
-
-class CollegeAddView(CreateView):
-    model = College
-    form_class = CollegeForm
-    template_name = 'colleges/add-college.html'
-    success_url = reverse_lazy('colleges')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'College created successfully.')
-        return super().form_valid(form)
-
-
-class CollegeEditView(UpdateView):
-    model = College
-    form_class = CollegeForm
-    template_name = 'colleges/edit-college.html'
-    context_object_name = 'college'
-    success_url = reverse_lazy('colleges')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'College updated successfully.')
-        return super().form_valid(form)
-
-
-class CollegeDeleteView(DeleteView):
-    model = College
-    template_name = 'colleges/delete-college.html'
-    context_object_name = 'college'
-    success_url = reverse_lazy('colleges')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'College deleted successfully.')
-        return super().delete(request, *args, **kwargs)
 
 
 # --------------- ENROLLMENT VIEWS --------------------

@@ -53,10 +53,9 @@ class CourseForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['profile', 'specialty']
+        fields = ['profile']
         widgets = {
             'profile': forms.Select(attrs={'class': 'form-select'}),
-            'specialty': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -96,10 +95,9 @@ class EnrollmentForm(forms.ModelForm):
 class GradeForm(forms.ModelForm):
     class Meta:
         model = Grade
-        fields = ['student', 'course', 'teacher', 'value']
+        fields = ['student', 'course', 'value']
         widgets = {
             'student': forms.Select(attrs={'class': 'form-select'}),
             'course': forms.Select(attrs={'class': 'form-select'}),
-            'teacher': forms.Select(attrs={'class': 'form-select'}),
             'value': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
         }

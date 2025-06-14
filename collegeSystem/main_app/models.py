@@ -158,7 +158,8 @@ class Course(models.Model):
         to='SemesterProgram',
         on_delete=models.CASCADE,
         null=True,
-        blank=True
+        blank=True,
+        related_name='courses',
     )
 
     def __str__(self):
@@ -174,12 +175,6 @@ class Grade(models.Model):
 
     course = models.ForeignKey(
         to='Course',
-        on_delete=models.CASCADE,
-        related_name='grades',
-    )
-
-    teacher = models.ForeignKey(
-        to='Teacher',
         on_delete=models.CASCADE,
         related_name='grades',
     )
@@ -205,18 +200,19 @@ class Student(models.Model):
         related_name='student_profile'
     )
 
-    specialty = models.CharField(
-        max_length=255
-    )
-
     enrolled_courses = models.ManyToManyField(
-        'Course',
+        to='Course',
         through='Enrollment',
         related_name='students'
     )
 
-    def __str__(self):
-        return f"{self.profile.user} ({self.specialty})"
+    enrolled_program = models.ForeignKey(
+        to='SemesterProgram',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='students'
+    )
 
 
 class Teacher(models.Model):

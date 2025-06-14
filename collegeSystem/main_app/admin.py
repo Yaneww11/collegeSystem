@@ -49,14 +49,14 @@ class CourseAdmin(ModelAdmin):
 
 @admin.register(Grade)
 class GradeAdmin(ModelAdmin):
-    list_display = ('student', 'course', 'teacher', 'value', 'issued_at')
-    search_fields = ('student__profile__user__username', 'course__name')
-    list_filter = ('teacher', 'course')
+    list_display = ('student', 'course', 'value', 'issued_at')
+    search_fields = ('course__name', )
+    list_filter = ('course', )
 
 @admin.register(Student)
 class StudentAdmin(ModelAdmin):
-    list_display = ('profile', 'specialty')
-    search_fields = ('profile__user__username', 'specialty')
+    list_display = ('profile',)
+    search_fields = ('profile__user__username', )
 
 @admin.register(Teacher)
 class TeacherAdmin(ModelAdmin):
