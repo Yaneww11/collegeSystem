@@ -49,22 +49,6 @@ const DataManager = {
         }
         return false;
     },
-    
-    // Similar CRUD methods for other entities...
-    
-    // Grade Management
-    addGrade: function(studentId, courseId, grade) {
-        const newGrade = {
-            id: Date.now().toString(),
-            studentId,
-            courseId,
-            grade,
-            date: new Date().toISOString()
-        };
-        this.grades.push(newGrade);
-        this.saveAll();
-        return newGrade;
-    }
 };
 
 // Initialize sample data if empty

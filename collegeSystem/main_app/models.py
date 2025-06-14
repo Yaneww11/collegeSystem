@@ -100,6 +100,11 @@ class Enrollment(models.Model):
 
     absences = models.PositiveIntegerField(default=0)
 
+    grade = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+    )
+
     class Meta:
         unique_together = (('student', 'course'),)
 
@@ -168,32 +173,6 @@ class Course(models.Model):
         return self.name
 
 
-class Grade(models.Model):
-    student = models.ForeignKey(
-        to='Student',
-        on_delete=models.CASCADE,
-        related_name='grades',
-    )
-
-    course = models.ForeignKey(
-        to='Course',
-        on_delete=models.CASCADE,
-        related_name='grades',
-    )
-
-    value = models.DecimalField(
-        max_digits=5,
-        decimal_places=2
-    )
-
-    issued_at = models.DateTimeField(
-        auto_now_add=True
-    )
-
-    def __str__(self):
-        return f"{self.student} - {self.course}: {self.value}"
-
-
 class Student(models.Model):
     profile = models.OneToOneField(
         Profile,
@@ -217,7 +196,7 @@ class Student(models.Model):
     )
 
     def __str__(self):
-        return self.profile.user.get_username()
+        return self.profile.user.get_full_name()
 
 
 class Teacher(models.Model):

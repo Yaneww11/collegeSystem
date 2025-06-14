@@ -4,93 +4,74 @@
 {% block title %}Student Management{% endblock title %}
 
 {% block content %}
-<main id="content">
-    <section class="section">
-        <h1>Student Management for {{ course }}</h1>
+    <main id="content">
+        <section class="section">
+            <h1>Student Management for {{ course }}</h1>
 
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-        {% endif %}
+            {% endif %}
 
-        <form method="post">
-            {% csrf_token %}
+            <form method="post">
+                {% csrf_token %}
 
-            <div class="toolbar">
-                <button type="submit" class="btn primary" id="save-grades">Save Changes</button>
-                {% comment %} potential handling of save changes: IN CourseManageView
+                <div class="toolbar">
+                    <button type="submit" class="btn primary" id="save-grades">Save Changes</button>
+                    {% comment %} potential handling of save changes: IN CourseManageView
                 for each student in course, if grade != null: updateGrade... and updateAbsences  {% endcomment %}
-            </div>
+                </div>
 
-            <div class="table-container">
-                <table class="table">
-                    <thead>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
                         <tr>
                             <th>Student Name</th>
                             <th>Grade</th>
                             <th>Absences</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% comment %}EXAMPLE table body ONLY FOR VIEW TESTING{% endcomment %}
-                        <tr>
-                            <td> Yane </td>
-                            <td>
-                                <select name="grade_1"> {% comment %} supposedly, grade_ + student.id {% endcomment %}
-                                    <option value="" disabled selected>—</option>
-                                    {% for option in options %}
-                                        <option value="{{ option }}">{{ option }}</option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" 
-                                    name="absences_1" {% comment %}supposedly absences_ + student.id{% endcomment %}
-                                    min="0" 
-                                    value="{{ student.absences|default:0 }}" 
-                                    style="width: 60px;"
-                                />
-                            </td>
-                        </tr>
-                        {% comment "Copilot generated for each" %}
+                        </thead>
+                        <tbody>
                         {% for enrollment in enrollments %}
-                        <tr>
-                            <td>{{ enrollment.student }}</td>
-                            <td>
-                                <select name="grade_{{ enrollment.student.id }}">
-                                    <option value="None" {% if not enrollment.student.grades.filter(course=course).exists %}selected{% endif %}>—</option>
-                                    {% for option in options %}
-                                        <option value="{{ option }}"
-                                            {% if enrollment.student.grades.filter(course=course, value=option).exists %}selected{% endif %}>
-                                            {{ option }}
+                            <tr>
+                                <td>{{ enrollment.student }}</td>
+                                <td>
+                                    <select name="grade_{{ enrollment.student.profile_id }}">
+                                        <option value="None"
+                                                {% if not enrollment.grade %}selected{% endif %}>
+                                            —
                                         </option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number"
-                                    name="absences_{{ enrollment.student.id }}"
-                                    value="{{ enrollment.absences|default:0 }}"
-                                    min="0"
-                                    class="input-small"
-                                />
-                            </td>
-                        </tr>
+                                        {% for option in options %}
+                                            <option value="{{ option }}"
+                                                    {% if enrollment.grade|stringformat:"i" == option %}selected{% endif %}>
+                                                {{ option }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number"
+                                           name="absences_{{ enrollment.student.profile_id }}"
+                                           value="{{ enrollment.absences|default:0 }}"
+                                           min="0"
+                                           class="input-small"
+                                    />
+                                </td>
+                            </tr>
                         {% empty %}
-                        <tr>
-                            <td colspan="3" class="text-center">No students enrolled</td>
-                        </tr>
+                            <tr>
+                                <td colspan="3" class="text-center">No students enrolled</td>
+                            </tr>
                         {% endfor %}
-                    {% endcomment %}
-                    </tbody>
-                </table>
-            </div>
-        </form>
-    </section>
-</main>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </section>
+    </main>
 {% endblock content %}

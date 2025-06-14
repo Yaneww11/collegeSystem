@@ -7,8 +7,7 @@ from collegeSystem.main_app.views import HomeView, CoursesListView, CourseDetail
     FacultyDetailView, ProgramsListView, ProgramDetailView, \
     StudentProgramView, StatisticsView, \
     EnrollmentsListView, EnrollmentDetailView, \
-    EnrollmentAddView, EnrollmentEditView, EnrollmentDeleteView, GradesListView, GradeAddView, GradeEditView, \
-    GradeDeleteView
+    EnrollmentAddView, EnrollmentEditView, EnrollmentDeleteView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -42,9 +41,6 @@ urlpatterns = [
     # --------------- ENROLLMENTS URLS --------------------
     path('enrollments/', EnrollmentsListView.as_view(), name='enrollments'),
     path('enrollments/enrollment-details/<int:pk>/', EnrollmentDetailView.as_view(), name='enrollment-details'),
-
-    # --------------- GRADES URLS --------------------
-    path('grades/', GradesListView.as_view(), name='grades'),
 
     # --------------- STATISTICS URLS --------------------
     path('statistics/', StatisticsView.as_view(), name='statistics'),

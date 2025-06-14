@@ -1,7 +1,7 @@
 from django import forms
 from .models import (
     College, Faculty, Department, Course, Student, Teacher,
-    SemesterProgram, Enrollment, Grade
+    SemesterProgram, Enrollment
 )
 
 
@@ -91,13 +91,3 @@ class EnrollmentForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-select'}),
         }
 
-
-class GradeForm(forms.ModelForm):
-    class Meta:
-        model = Grade
-        fields = ['student', 'course', 'value']
-        widgets = {
-            'student': forms.Select(attrs={'class': 'form-select'}),
-            'course': forms.Select(attrs={'class': 'form-select'}),
-            'value': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-        }

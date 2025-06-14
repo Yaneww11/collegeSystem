@@ -7,7 +7,6 @@ from .models import (
     Enrollment,
     SemesterProgram,
     Course,
-    Grade,
     Student,
     Teacher
 )
@@ -46,12 +45,6 @@ class CourseAdmin(ModelAdmin):
     list_display = ('name', 'department', 'teacher', 'semester_program')
     search_fields = ('name', 'description')
     list_filter = ('department', 'semester_program')
-
-@admin.register(Grade)
-class GradeAdmin(ModelAdmin):
-    list_display = ('student', 'course', 'value', 'issued_at')
-    search_fields = ('course__name', )
-    list_filter = ('course', )
 
 @admin.register(Student)
 class StudentAdmin(ModelAdmin):

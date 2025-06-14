@@ -6,12 +6,9 @@ from django.db import transaction
 
 from .models import (
     College, Faculty, Department, Course, Student, Teacher,
-    SemesterProgram, Enrollment, Grade
+    SemesterProgram, Enrollment
 )
-from .forms import (
-    CollegeForm, FacultyForm, DepartmentForm, CourseForm, StudentForm, TeacherForm,
-    SemesterProgramForm, EnrollmentForm, GradeForm
-)
+from .forms import EnrollmentForm
 
 
 # Create your views here.
@@ -42,43 +39,32 @@ class CourseManageView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['students'] = Student.objects.all()
-        print(context)
+        context['enrollments'] = self.object.enrollments.select_related('student').all()
         context['options'] = "2,3,4,5,6,None".split(',')
         return context
     
     def post(self, request, *args, **kwargs):
         course = self.get_object()
         enrollments = course.enrollments.select_related('student')
-
+        print(request.POST)
         with transaction.atomic():
             for enrollment in enrollments:
-                student_id = enrollment.student.id
-
-                #Handle grade
+                student_id = enrollment.student.profile_id
                 grade_value = request.POST.get(f'grade_{student_id}')
-                if grade_value and grade_value != 'None':
-                    grade_object, created = Grade.objects.get_or_create(
-                        student=enrollment.student,
-                        course=course,
-                        defaults={'value': grade_value}
-                    )
-                    if not created:
-                        grade_object.value = grade_value
-                        grade_object.save()
-                else:
-                    # If grade is selected as None, delete the grade
-                    Grade.objects.filter(student=enrollment.student, course=course).delete()
+                if grade_value and grade_value != '--':
+                    if grade_value == 'None':
+                        enrollment.grade = None
+                    else:
+                        enrollment.grade = int(grade_value)
 
-                # Handle absences
                 absences_val = request.POST.get(f'absences_{student_id}')
                 if absences_val is not None:
                     try:
                         enrollment.absences = int(absences_val)
                         enrollment.save()
                     except ValueError:
-                        pass  # Optionally handle invalid input, shouldn't happen
+                        pass
 
-        messages.success(request, 'Changes saved successfully.')
         return redirect('course-manage', pk=course.pk)
 
 # --------------- DEPARTMENTS VIEWS --------------------
@@ -221,42 +207,3 @@ class EnrollmentDeleteView(DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-# --------------- GRADE VIEWS --------------------
-class GradesListView(ListView):
-    model = Grade
-    template_name = 'grades/grades.html'
-    context_object_name = 'grades'
-
-
-class GradeAddView(CreateView):
-    model = Grade
-    form_class = GradeForm
-    template_name = 'grades/add-grade.html'
-    success_url = reverse_lazy('grades')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Grade created successfully.')
-        return super().form_valid(form)
-
-
-class GradeEditView(UpdateView):
-    model = Grade
-    form_class = GradeForm
-    template_name = 'grades/edit-grade.html'
-    context_object_name = 'grade'
-    success_url = reverse_lazy('grades')
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Grade updated successfully.')
-        return super().form_valid(form)
-
-
-class GradeDeleteView(DeleteView):
-    model = Grade
-    template_name = 'grades/delete-grade.html'
-    context_object_name = 'grade'
-    success_url = reverse_lazy('grades')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, 'Grade deleted successfully.')
-        return super().delete(request, *args, **kwargs)
