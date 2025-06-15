@@ -1,5 +1,7 @@
 # College System
 
+Project documentation: https://drive.google.com/file/d/1_JNWwY5sueiwYZF_MyN86URoIqiR2KXQ/view?usp=sharing
+
 This is a Django-based project for managing a college system. It includes features for handling various aspects of a college's operations.
 
 ## Project Details
