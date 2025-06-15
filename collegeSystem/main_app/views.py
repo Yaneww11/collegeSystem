@@ -1,8 +1,10 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Avg, Max, Min, Count, Q
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from django.db import transaction
+from django.db import connection
 
 from .models import (
     College, Faculty, Department, Course, Student, Teacher,
@@ -46,7 +48,6 @@ class CourseManageView(DetailView):
     def post(self, request, *args, **kwargs):
         course = self.get_object()
         enrollments = course.enrollments.select_related('student')
-        print(request.POST)
         with transaction.atomic():
             for enrollment in enrollments:
                 student_id = enrollment.student.profile_id
@@ -157,6 +158,77 @@ class StudentProgramView(ListView):
 # --------------- STATISTICS VIEWS --------------------
 class StatisticsView(TemplateView):
     template_name = 'statistics/statistics.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        courses = Course.objects.filter(enrollments__gte=1).distinct()
+        teachers = Teacher.objects.prefetch_related('courses').filter(courses__isnull=False).distinct()
+        grade_distribution_by_course = []
+        grade_distribution_by_teacher = []
+
+        for course in courses:
+            enrollments_with_grades = Enrollment.objects.filter(grade__isnull=False, course=course).values('grade', 'student')
+            statistics= enrollments_with_grades.aggregate(
+                avg_grade=Avg('grade'),
+                highest_grade=Max('grade'),
+                lowest_grade=Min('grade'),
+                passed_students=Count('student', filter=Q(grade__gte=3)),
+                failed_students=Count('student', filter=Q(grade=2))
+            )
+
+            statistics_by_course = {course.name: statistics}
+            statistics['avg_grade'] = round(statistics.get('avg_grade') or 0, 2)
+            grade_distribution_by_course.append(statistics_by_course)
+
+        for teacher in teachers:
+            courses_taught = teacher.courses.all()
+            enrollments_with_grades = Enrollment.objects.prefetch_related('course').filter(grade__isnull=False, course__in=courses_taught).values('grade', 'student', 'course__department')
+            statistics = enrollments_with_grades.aggregate(
+                avg_grade=Avg('grade'),
+                courses_taught=Count('student', filter=Q(grade__gte=3)),
+                all_students=Count('student')
+            )
+
+            statistics_by_teacher = {teacher.profile.user.get_full_name(): statistics}
+            statistics['avg_grade'] = round(statistics.get('avg_grade') or 0, 2)
+            grade_distribution_by_teacher.append(statistics_by_teacher)
+
+        # Summary by Department
+        departments = Department.objects.prefetch_related('courses').filter(courses__isnull=False).distinct()
+        departments_summary = []
+        for department in departments:
+            programs_count = SemesterProgram.objects.prefetch_related('courses').filter(courses__department=department).count()
+            # Show only courses which are enrolled
+            courses_count = courses.filter(department=department).count()
+            teachers_count = teachers.filter(department=department).count()
+            students_count = Student.objects.filter(enrollments__course__department=department).distinct().count()
+            dep_enrollments_with_grades = enrollments_with_grades.filter(course__department=department)
+            avg_grade = dep_enrollments_with_grades.aggregate(
+                avg_grade=Avg('grade'),
+            ).get('avg_grade')
+
+            # avg_grade = Enrollment.objects.filter(course__department=department, grade__isnull=False).aggregate(
+            #     avg_grade=Avg('grade'))['avg_grade'] or 0
+            # avg_grade = round(avg_grade, 2)
+            #
+            departments_summary.append({
+                'department': department.name,
+                'programs_count': programs_count,
+                'courses_count': courses_count,
+                'teachers_count': teachers_count,
+                'students_count': students_count,
+                'avg_grade': round(avg_grade, 2) if avg_grade else 0,
+            })
+
+        # Check how many queries were executed
+        # for con in connection.queries:
+        #     print(con)
+        # print(len(connection.queries))
+        context['grade_distribution_by_teacher'] = grade_distribution_by_teacher
+        context['grade_distribution_by_course'] = grade_distribution_by_course
+        context['departments_summary'] = departments_summary
+
+        return context
 
 
 
