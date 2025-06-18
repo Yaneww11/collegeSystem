@@ -7,13 +7,15 @@ from collegeSystem.main_app.views import HomeView, CoursesListView, CourseDetail
     FacultyDetailView, ProgramsListView, ProgramDetailView, \
     StudentProgramView, StatisticsView, \
     EnrollmentsListView, EnrollmentDetailView, \
-    EnrollmentAddView, EnrollmentEditView, EnrollmentDeleteView
+    EnrollmentAddView, EnrollmentEditView, EnrollmentDeleteView, add_course_to_student, delete_course_from_student
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
 
     # ---------------- COURSES URLS ---------------------
     path('courses/', CoursesListView.as_view(), name='courses'),
+    path('courses/add/<int:pk>/', add_course_to_student, name='add-course-to-student'),
+    path('courses/delete/<int:pk>/', delete_course_from_student, name='delete-course-from-student'),
     path('courses/course-details/<int:pk>/', CourseDetailView.as_view(), name='course-details'),
     path("courses/course-manage/<int:pk>/", CourseManageView.as_view(), name="course-manage"),
 

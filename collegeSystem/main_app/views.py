@@ -26,6 +26,19 @@ class CoursesListView(ListView):
     # update this to pass courses based on logged-in user + role
     # if student, show only courses they are enrolled in and remove manage action button
     # if teacher, show only courses they teach
+    def get_queryset(self):
+        user = self.request.user
+        print(user.id)
+        courses = Course.objects.exclude(enrollments__student__profile_id=user.id).all()
+        # Example: Only return published courses
+        return courses
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['enrolled_course'] = Course.objects.filter(enrollments__student__profile_id=user.id).all()
+        context['not_enrolled_course'] = Course.objects.exclude(enrollments__student__profile_id=user.id).all()
+        return context
 
 
 class CourseDetailView(DetailView):
@@ -278,4 +291,37 @@ class EnrollmentDeleteView(DeleteView):
         messages.success(request, 'Enrollment deleted successfully.')
         return super().delete(request, *args, **kwargs)
 
+def add_course_to_student(request, pk):
+    try:
+        student = Student.objects.get(pk=request.user.id)
+        course = Course.objects.get(pk=pk)
+        Enrollment.objects.create(student=student, course=course)
+        messages.success(request, f'Course {course.name} added to student {student.profile.user.get_full_name()}.')
+    except Student.DoesNotExist:
+        messages.error(request, 'Student does not exist.')
+    except Course.DoesNotExist:
+        messages.error(request, 'Course does not exist.')
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+
+    return redirect('courses')
+
+def delete_course_from_student(request, pk):
+    try:
+        student = Student.objects.get(pk=request.user.id)
+        course = Course.objects.get(pk=pk)
+        enrollment = Enrollment.objects.get(student=student, course=course)
+        print(enrollment)
+        enrollment.delete()
+        messages.success(request, f'Course {course.name} removed from student {student.profile.user.get_full_name()}.')
+    except Student.DoesNotExist:
+        messages.error(request, 'Student does not exist.')
+    except Course.DoesNotExist:
+        messages.error(request, 'Course does not exist.')
+    except Enrollment.DoesNotExist:
+        messages.error(request, 'Enrollment does not exist.')
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+
+    return redirect('courses')
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static is_teacher is_student %}
 
 {% block title %}Courses Management{% endblock title %}
 
@@ -30,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for course in courses %}
+                    {% for course in enrolled_course %}
                         <tr>
                             <td>{{ course.name }}</td>
                             <td>{{ course.department.name }}</td>
@@ -40,21 +40,39 @@
                                 <div class="action-buttons">
                                     <a href="{% url 'course-details' course.id %}" class="action-btn view-btn"
                                         title="View"><i class="fas fa-eye"></i></a>
-                                       {% comment "" %} show this only if currentUser == course.teacher {% endcomment %}
-                                    <a href="{% url 'course-manage' course.id %}" class="action-btn edit-btn"
-                                        title="Manage Students"><i class="fas fa-users"></i></a>
-                                        {% comment "" %}zapisvane, STUDENT ONLY, samo ako NE E zapisan veche{% endcomment %}
-                                    <a class="action-btn signup-btn" style="background-color: #28a745;"
-                                        title="Enroll"><i class="fas fa-plus"></i></a>
-                                        {% comment "" %}otpisvane, STUDENT ONLY, samo ako E zapisan veche{% endcomment %}
-                                    <a class="action-btn delete-btn" 
-                                        title="Drop Course"><i class="fas fa-minus"></i></a>
+                                    {% if request.user|is_teacher %}
+                                        <a href="{% url 'course-manage' course.id %}" class="action-btn edit-btn"
+                                            title="Manage Students"><i class="fas fa-users"></i></a>
+                                    {% endif %}
+                                    {% if request.user|is_student %}
+                                        <a href="{% url 'delete-course-from-student' course.id %}" class="action-btn delete-btn"
+                                            title="Drop Course"><i class="fas fa-minus"></i></a>
+                                    {% endif %}
                                 </div>
                             </td>
                         </tr>
-                    {% empty %}
+                    {% endfor %}
+
+                    {% for course in not_enrolled_course %}
                         <tr>
-                            <td colspan="5" class="text-center">No courses available</td>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.department.name }}</td>
+                            <td>{{ course.teacher.profile.user.get_full_name }}</td>
+                            <td>{{ course.semester_program.semester }} {{ course.semester_program.year }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{% url 'course-details' course.id %}" class="action-btn view-btn"
+                                        title="View"><i class="fas fa-eye"></i></a>
+                                    {% if request.user|is_teacher %}
+                                        <a href="{% url 'course-manage' course.id %}" class="action-btn edit-btn"
+                                            title="Manage Students"><i class="fas fa-users"></i></a>
+                                    {% endif %}
+                                    {% if request.user|is_student %}
+                                        <a href="{% url 'add-course-to-student' course.id %}" class="action-btn signup-btn" style="background-color: #28a745;"
+                                            title="Enroll"><i class="fas fa-plus"></i></a>
+                                    {% endif %}
+                                </div>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

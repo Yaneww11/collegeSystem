@@ -1,4 +1,4 @@
-{% load static is_teacher %}
+{% load static is_teacher is_rector %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,9 @@
                     <a href="{% url 'faculties' %}">Faculties</a>
                 {% endif %}
                 <a href="{% url 'programs' %}">Programs</a>
-                <a href="{% url 'statistics' %}">Statistics</a>
+                {% if request.user|is_rector %}
+                    <a href="{% url 'statistics' %}">Statistics</a>
+                {% endif %}
             </div>
             <div class="auth-buttons">
                 <form method="post" action="{% url 'logout' %}">
