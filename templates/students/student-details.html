@@ -7,15 +7,17 @@
     <main id="content">
         <h1>Student Details</h1>
         <div class="card">
-            <p><strong>Name:</strong> Maria Ivanova</p>
-            <p><strong>Email:</strong> maria@college.edu</p>
-            <p><strong>Faculty:</strong> <a href="#" class="faculty-link">Faculty of Science</a></p>
-            <p><strong>Program:</strong> <a href="#" class="program-link">Computer Science</a></p>
+            <p><strong>Name:</strong> {{ student }}</p>
+            <p><strong>Email:</strong> {{ student.profile.user.email }}</p>
+            <p><strong>Faculty:</strong> <a href="{% url 'faculty-details' student.faculty.pk %}" class="faculty-link">{{ student.faculty }}</a></p>
+            <p><strong>Program:</strong> <a href="{% url 'program-details' student.enrolled_program.pk %}" class="program-link">{{ student.enrolled_program }}</a></p>
             <p><strong>Enrolled Courses:</strong></p>
             <ul class="simple-list">
-                <li><a href="#" class="course-link">Data Structures</a></li>
-                <li><a href="#" class="course-link">Algorithms</a></li>
-                <li><a href="#" class="course-link">Operating Systems</a></li>
+                {% for course in student.enrolled_courses.all %}
+                    <li><a href="{% url 'course-details' course.pk %}" class="course-link">{{ course }}</a></li>
+                {% empty %}
+                    <li class="text-center">No courses enrolled</li>
+                {% endfor %}
             </ul>
         </div>
         <div class="form-actions">

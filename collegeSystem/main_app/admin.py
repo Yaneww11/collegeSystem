@@ -18,9 +18,9 @@ class CollegeAdmin(ModelAdmin):
 
 @admin.register(Faculty)
 class FacultyAdmin(ModelAdmin):
-    list_display = ('name', 'college')
-    search_fields = ('name',)
-    list_filter = ('college',)
+    list_display = ('name', 'college', 'head',)
+    search_fields = ('name', 'head__profile__user__username')
+    list_filter = ('college', 'head')
 
 @admin.register(Department)
 class DepartmentAdmin(ModelAdmin):
@@ -36,8 +36,8 @@ class EnrollmentAdmin(ModelAdmin):
 
 @admin.register(SemesterProgram)
 class SemesterProgramAdmin(ModelAdmin):
-    list_display = ('semester', 'year', 'college')
-    list_filter = ('year', 'college')
+    list_display = ('semester', 'year', 'department')
+    list_filter = ('year', 'department')
     search_fields = ('semester',)
 
 @admin.register(Course)
@@ -53,6 +53,6 @@ class StudentAdmin(ModelAdmin):
 
 @admin.register(Teacher)
 class TeacherAdmin(ModelAdmin):
-    list_display = ('profile', 'department')
-    search_fields = ('profile__user__username', 'description')
+    list_display = ('profile', 'department', 'faculty')
+    search_fields = ('profile__user__username', 'description', 'faculty__name')
     list_filter = ('department',)

@@ -31,8 +31,8 @@
                     <tbody>
                     {% for course in department.courses.all %}
                         <tr>
-                            <td><a href="#" class="course-link">{{ course.name }}</a></td>
-                            <td>{{ course.teacher }}</td>
+                            <td><a href="{% url 'course-details' course.pk %}" class="course-link">{{ course.name }}</a></td>
+                            <td><a href="{% url 'teacher-details' course.teacher.pk %}" class="teacher-link">{{ course.teacher }}</a></td>
                             <td>{{ course.credits }}</td>
                         </tr>
                     {% empty %}
@@ -49,7 +49,7 @@
             <h2>Teachers</h2>
             <ul class="simple-list card">
                 {% for teacher in department.teachers.all %}
-                    <li><a href="{% url 'teacher-details' teacher.id %}" class="teacher-link">{{ teacher }}</a></li>
+                    <li><a href="{% url 'teacher-details' teacher.profile.pk %}" class="teacher-link">{{ teacher }}</a></li>
                 {% empty %}
                     <li class="text-center">No teachers available</li>
                 {% endfor %}

@@ -43,6 +43,14 @@ class Faculty(models.Model):
         blank=True
     )
 
+    head = models.OneToOneField(
+        to='Teacher',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='head_of_faculty'
+    )
+
     def __str__(self):
         return self.name
 
@@ -119,12 +127,12 @@ class SemesterProgram(models.Model):
 
     year = models.PositiveIntegerField()
 
-    college = models.ForeignKey( # change to department?
-        to='College',
+    department = models.ForeignKey(
+        to='Department',
         on_delete=models.CASCADE,
         related_name='semester_programs',
         null=True,
-        blank=True,
+        blank=True
     )
 
     def __str__(self):
@@ -181,6 +189,14 @@ class Student(models.Model):
         related_name='student_profile'
     )
 
+    faculty = models.ForeignKey(
+        to='Faculty',
+        on_delete=models.CASCADE,
+        related_name='students',
+        null=True,
+        blank=True
+    )
+
     enrolled_courses = models.ManyToManyField(
         to='Course',
         through='Enrollment',
@@ -213,10 +229,19 @@ class Teacher(models.Model):
         related_name='teachers',
     )
 
+    faculty = models.ForeignKey(
+        Faculty,
+        on_delete=models.CASCADE,
+        related_name='teachers',
+        null=True,
+        blank=True
+    )
+
     description = models.TextField(
         blank=True,
         null=True
     )
 
     def __str__(self):
-        return self.profile.user.get_full_name()
+        full_name = self.profile.user.get_full_name()
+        return full_name if full_name else self.profile.user.username

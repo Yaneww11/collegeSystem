@@ -32,10 +32,8 @@
                     <tbody>
                     {% for program in programs %}
                         <tr>
-                            <td>{{ program.semester }}</td>
-                            {% comment %} using current model, switch to name? {% endcomment %}
-                            <td>{{ program.college.name }}</td>
-                            {% comment %} using current model, switch to department.name {% endcomment %}
+                            <td>{{ program }}</td>
+                            <td>{{ program.department }}</td>
                             <td>{{ program.semester }}</td>
                             <td>{{ program.year }}</td>
                             <td>

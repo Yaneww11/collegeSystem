@@ -73,11 +73,11 @@ class TeacherForm(forms.ModelForm):
 class SemesterProgramForm(forms.ModelForm):
     class Meta:
         model = SemesterProgram
-        fields = ['semester', 'year', 'college']
+        fields = ['semester', 'year', 'department']
         widgets = {
             'semester': forms.TextInput(attrs={'class': 'form-control'}),
             'year': forms.NumberInput(attrs={'class': 'form-control'}),
-            'college': forms.Select(attrs={'class': 'form-select'}),
+            'department': forms.Select(attrs={'class': 'form-select'}),
         }
 
 

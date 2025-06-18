@@ -42,7 +42,7 @@ function setupEventListeners() {
         showModal('register-modal');
     });
 
-    document.getElementById('logout-btn').addEventListener('click', logout);
+    // document.getElementById('logout-btn').addEventListener('click', logout);
 }
 
 function renderPage(page) {

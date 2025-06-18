@@ -16,7 +16,7 @@
                     <p><strong>Instructor:</strong> <a href="{% url 'teacher-details' course.teacher.profile.pk %}">{{ course.teacher.profile.user.get_full_name }}</a></p>
                 {% endif %}
                 <p><strong>Semester:</strong> {{ course.semester_program.semester }} {{ course.semester_program.year }}</p>
-                <p><strong>Enrolled Students:</strong> {{ course.students.count }}</p>
+                <p><strong>Enrolled Students:</strong> {{ course.semester_program.students.count }}</p>
                 <p><strong>Description:</strong> {{ course.description|linebreaks }}</p>
             </div>
 
