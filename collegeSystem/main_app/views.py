@@ -22,7 +22,7 @@ class HomeView(TemplateView):
 class CoursesListView(ListView):
     model = Course
     template_name = 'courses/courses.html'
-    context_object_name = 'courses'
+    context_object_name = 'enrolled_course'
     # update this to pass courses based on logged-in user + role
     # if student, show only courses they are enrolled in and remove manage action button
     # if teacher, show only courses they teach
@@ -31,13 +31,18 @@ class CoursesListView(ListView):
         print(user.id)
         courses = Course.objects.exclude(enrollments__student__profile_id=user.id).all()
         # Example: Only return published courses
-        return courses
+        return Course.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context['enrolled_course'] = Course.objects.filter(enrollments__student__profile_id=user.id).all()
-        context['not_enrolled_course'] = Course.objects.exclude(enrollments__student__profile_id=user.id).all()
+        if hasattr(user, 'profile'):
+            if hasattr(user.profile, 'student_profile'):
+                context['enrolled_course'] = Course.objects.filter(enrollments__student__profile_id=user.id).all()
+                context['not_enrolled_course'] = Course.objects.exclude(enrollments__student__profile_id=user.id).all()
+            elif hasattr(user.profile, 'teacher_profile'):
+                context['enrolled_course'] = Course.objects.filter(teacher__profile_id=user.id).all()
+
         return context
 
 
