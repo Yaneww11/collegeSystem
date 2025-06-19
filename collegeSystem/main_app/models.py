@@ -15,7 +15,8 @@ class College(models.Model):
         to=Profile,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        related_name='rector_of_college'
     )
 
     created_at = models.DateTimeField(

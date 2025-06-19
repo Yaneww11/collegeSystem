@@ -9,6 +9,6 @@ def is_rector(user):
         return True
     if not hasattr(user, 'profile'):
         return False
-    if hasattr(user.profile, 'teacher_profile') and hasattr(user.profile.teacher_profile, 'head_of_faculty'):
+    if hasattr(user.profile, 'rector_of_college'):
         return True
     return False
