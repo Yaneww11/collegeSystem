@@ -84,6 +84,7 @@ class CourseManageView(DetailView):
                     except ValueError:
                         pass
 
+        messages.success(request, 'Grades and absences updated successfully.')
         return redirect('course-manage', pk=course.pk)
 
 # --------------- DEPARTMENTS VIEWS --------------------
@@ -220,7 +221,7 @@ class StatisticsView(TemplateView):
             courses_count = courses.filter(department=department).count()
             teachers_count = teachers.filter(department=department).count()
             students_count = Student.objects.filter(enrollments__course__department=department).distinct().count()
-            dep_enrollments_with_grades = enrollments_with_grades.filter(course__department=department)
+            dep_enrollments_with_grades = Enrollment.objects.filter(grade__isnull=False, course__department=department).values('grade')
             avg_grade = dep_enrollments_with_grades.aggregate(
                 avg_grade=Avg('grade'),
             ).get('avg_grade')
